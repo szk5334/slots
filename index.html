@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Slots!</title>
+    <style>
+        .scrollbox {
+            filter:invert(1);
+            overflow: auto;
+            width: 300px;
+            max-height: 300px;
+            background: /* Shadow covers */
+            linear-gradient(white 30%, rgba(255, 255, 255, 0)), linear-gradient(rgba(255, 255, 255, 0), white 70%) 0 100%, /* Shadows */
+            radial-gradient(50% 0, farthest-side, rgba(0, 0, 0, .2), rgba(0, 0, 0, 0)), radial-gradient(50% 100%, farthest-side, rgba(0, 0, 0, .2), rgba(0, 0, 0, 0)) 0 100%;
+            background: /* Shadow covers */
+            linear-gradient(white 30%, rgba(255, 255, 255, 0)), linear-gradient(rgba(255, 255, 255, 0), white 70%) 0 100%, /* Shadows */
+            radial-gradient(farthest-side at 50% 0, rgba(0, 0, 0, .2), rgba(0, 0, 0, 0)), radial-gradient(farthest-side at 50% 100%, rgba(0, 0, 0, .2), rgba(0, 0, 0, 0)) 0 100%;
+            background-repeat: no-repeat;
+            background-color: white;
+            background-size: 100% 40px, 100% 40px, 100% 14px, 100% 14px;
+            /* Opera doesn't support this in the shorthand */
+            background-attachment: local, local, scroll, scroll;
+        }
+        
+        label {
+            filter: invert(1);
+        }
+    </style>
+</head>
+
+<body style="background-color: black">
+    <table id="bonusDice">
+        <tr>
+            <td><button id="bonDice1" style="background: url('img/blank'); background-size:cover;width:48px;height:48px"></button></td>
+            <td><button id="bonDice2" style="background: url('img/blank'); background-size:cover;width:48px;height:48px"></button></td>
+            <td><button id="bonDice3" style="background: url('img/blank'); background-size:cover;width:48px;height:48px"></button></td>
+            <td><button id="bonDice4" style="background: url('img/blank'); background-size:cover;width:48px;height:48px"></button></td>
+            <td><button id="bonDice5" style="background: url('img/blank'); background-size:cover;width:48px;height:48px"></button></td>
+            <td width=2></td>
+            <td><button id="bonCard1" style="background: url('img/blank'); background-size:cover;width:48px;height:48px"></button></td>
+            <td><button id="bonCard2" style="background: url('img/blank'); background-size:cover;width:48px;height:48px"></button></td>
+            <td><button id="bonCard3" style="background: url('img/blank'); background-size:cover;width:48px;height:48px"></button></td>
+            <td><button id="bonCard4" style="background: url('img/blank'); background-size:cover;width:48px;height:48px"></button></td>
+            <td><button id="bonCard5" style="background: url('img/blank'); background-size:cover;width:48px;height:48px"></button></td>
+        </tr>
+    </table>
+    <table id="information">
+        <td colspan=4 height=25>
+            <h2 style="text-align:center"><label>Slots!</label></h2>
+        </td>
+        <tr>
+            <td width=125 height=25>
+                <h3>
+                    <label>BALANCE:<br>$<span id="balance">0</span></label>
+                </h3>
+            </td>
+            <td width=125 height=25>
+                <h3>
+                    <label>SCORE:<br>$<span id="score">0</span></label>
+                </h3>
+            </td>
+            <td width=125 height=25>
+                <h3>
+                    <label>Rounds: <span id="rounds">0</span></label>
+                </h3>
+            </td>
+            <td width=125 height=25>
+                <h3>
+                    <label>Rolls: <span id="rolls" style="text-align:right">0</span></label>
+                </h3>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <h3>
+                    <label>Bet: $<span id="bet" style="text-align:right">0</span></label>
+                </h3>
+            </td>
+            <td><button id="return" style=height:70px;width:70px>Return to Slots</button></td>
+            <td><button id="gotoYahtzee" style=height:70px;width:70px>Yahtzee Bonus!</button></td>
+            <td><button id="gotoPoker" style=height:70px;width:70px>Poker Bonus!</button></td>
+        </tr>
+    </table>
+
+
+    <table id="slotsGame">
+        <tr>
+            <td>
+                <table>
+                    <tr>
+                        <td>
+                            <button id="dice1" style="background: url('img/blank'); background-size:cover; height:100px;width:100px"></button>
+                        </td>
+                        <td>
+                            <button id="dice2" style="background: url('img/blank'); background-size:cover; height:100px;width:100px"></button>
+                        </td>
+                        <td>
+                            <button id="dice3" style="background: url('img/blank'); background-size:cover; height:100px;width:100px"></button>
+                        </td>
+                        <td>
+                            <button id="dice4" style="background: url('img/blank'); background-size:cover; height:100px;width:100px"></button>
+                        </td>
+                        <td>
+                            <button id="dice5" style="background: url('img/blank'); background-size:cover; height:100px;width:100px"></button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <button id="dice6" style="background: url('img/blank'); background-size:cover; height:100px;width:100px"></button>
+                        </td>
+                        <td>
+                            <button id="dice7" style="background: url('img/blank'); background-size:cover; height:100px;width:100px"></button>
+                        </td>
+                        <td>
+                            <button id="dice8" style="background: url('img/blank'); background-size:cover; height:100px;width:100px"></button>
+                        </td>
+                        <td>
+                            <button id="dice9" style="background: url('img/blank'); background-size:cover; height:100px;width:100px"></button>
+                        </td>
+                        <td>
+                            <button id="dice10" style="background: url('img/blank'); background-size:cover; height:100px;width:100px"></button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <button id="dice11" style="background: url('img/blank'); background-size:cover; height:100px;width:100px"></button>
+                        </td>
+                        <td>
+                            <button id="dice12" style="background: url('img/blank'); background-size:cover; height:100px;width:100px"></button>
+                        </td>
+                        <td>
+                            <button id="dice13" style="background: url('img/blank'); background-size:cover; height:100px;width:100px"></button>
+                        </td>
+                        <td>
+                            <button id="dice14" style="background: url('img/blank'); background-size:cover; height:100px;width:100px"></button>
+                        </td>
+                        <td>
+                            <button id="dice15" style="background: url('img/blank'); background-size:cover; height:100px;width:100px"></button>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+            <td>
+                <div id="log" class="scrollbox" style="vertical-align:text-top"></div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <table id="bettingButtons">
+                    <tr>
+                        <td><button id="bet20" style="height:100px;width:100px">$0.20</button></td>
+                        <td><button id="bet40" style="height:100px;width:100px">$0.40</button></td>
+                        <td><button id="bet60" style="height:100px;width:100px">$0.60</button></td>
+                        <td><button id="bet80" style="height:100px;width:100px">$0.80</button></td>
+                        <td><button id="bet1" style="height:100px;width:100px">$1.00</button></td>
+                    </tr>
+                    <tr>
+                        <td><button id="roll" style="height:100px;width:100px"><h3>Roll</h3></button></td>
+                        <td><button id="depositBtn" style="height:100px;width:100px">Deposit</button></td>
+                        <td colspan=2><input type="text" id="deposit" placeholder="Dollar Amount" style="height:95px;width:195px;font-size:25px" data-type="currency"></td>
+                        <td><button id="betMax" style="height:100px;width:100px">MAX BET</button></td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+    <table id="pokerGame">
+        <tr>
+            <td>
+                <button id="deal">Deal</button>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <button id="dice16" style="background: url('img/blank'); background-size:cover; height:100px;width:100px">
+        </td>
+        <td>
+            <button id="dice17" style="background: url('img/blank'); background-size:cover; height:100px;width:100px">
+        </td>
+        <td>
+            <button id="dice18" style="background: url('img/blank'); background-size:cover; height:100px;width:100px">
+        </td>
+        <td>
+            <button id="dice19" style="background: url('img/blank'); background-size:cover; height:100px;width:100px">
+        </td>
+        <td>
+            <button id="dice20" style="background: url('img/blank'); background-size:cover; height:100px;width:100px">
+        </td>
+    </tr>
+</table>
+<table id="yahtzeeGame">
+    <tr>
+        <td>
+            <button id="yahtzeeRoll" style="height:100px;width:100px;">Roll</button>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <button id="dice21" style="background: url('img/blank'); background-size:cover; height:100px;width:100px;">
+        </td>
+        <td>
+            <button id="dice22" style="background: url('img/blank'); background-size:cover; height:100px;width:100px;">
+        </td>
+        <td>
+            <button id="dice23" style="background: url('img/blank'); background-size:cover; height:100px;width:100px;">
+        </td>
+        <td>
+            <button id="dice24" style="background: url('img/blank'); background-size:cover; height:100px;width:100px;">
+        </td>
+        <td>
+            <button id="dice25" style="background: url('img/blank'); background-size:cover; height:100px;width:100px;">
+        </td>
+        </td>
+    </tr>
+</table>
+    <table id = "yahtzeeScore">
+        <tr>
+            <td align="center"><button id="1sBtn" style=height:60px;width:60px>1s</button></td>
+            <td align="center"><button id="2sBtn" style=height:60px;width:60px>2s</button></td>
+            <td align="center"><button id="3sBtn" style=height:60px;width:60px>3s</button></td>
+            <td align="center"><button id="4sBtn" style=height:60px;width:60px>4s</button></td>
+            <td align="center"><button id="5sBtn" style=height:60px;width:60px>5s</button></td>
+            <td align="center"><button id="6sBtn" style=height:60px;width:60px>6s</button></td>
+        </tr>
+        <tr>
+            <td align="center"><label>Total 1s</label></td>
+            <td align="center"><label>Total 2s</label></td>
+            <td align="center"><label>Total 3s</label></td>
+            <td align="center"><label>Total 4s</label></td>
+            <td align="center"><label>Total 5s</label></td>
+            <td align="center"><label>Total 6s</label></td>
+        </tr>
+        <tr>
+            <td align="center"><label id="1s">___</label></td>
+            <td align="center"><label id="2s">___</label></td>
+            <td align="center"><label id="3s">___</label></td>
+            <td align="center"><label id="4s">___</label></td>
+            <td align="center"><label id="5s">___</label></td>
+            <td align="center"><label id="6s">___</label></td>
+        </tr>
+        <tr>
+            <td><br></td>
+        </tr>
+        <tr>
+            <td align="center"><button id="3oakBtn" style=height:60px;width:60px>3 of a Kind</button></td>
+            <td align="center"><button id="4oakBtn" style=height:60px;width:60px>4 of a Kind</button></td>
+            <td align="center"><button id="fullhouseBtn" style=height:60px;width:60px>Full House</button></td>
+            <td align="center"><button id="smstraightBtn" style=height:60px;width:60px>Sm Straight</button></td>
+            <td align="center"><button id="lgstraightBtn" style=height:60px;width:60px>Lg Straight</button></td>
+            <td align="center"><button id="yahtzeeBtn" style=height:60px;width:60px>Yahtzee</button></td>
+            <td align="center"><button id="chanceBtn" style=height:60px;width:60px>Chance</button></td>
+        </tr>
+        <!--<tr>
+                <td></td>
+                <td align="center"></td>
+                <td align="center"></td>
+                <td align="center"></td>
+                <td align="center">Seq of 4</td>
+                <td align="center">Seq of 5</td>
+                <td align="center">5 of a<br>Kind</td>
+            </tr> -->
+        <tr>
+            <td align="center"><label>Total all<br>dice</label></td>
+            <td align="center"><label>Total all<br>dice</label></td>
+            <td align="center"><label>Score 25</label></td>
+            <td align="center"><label>Score 30</label></td>
+            <td align="center"><label>Score 40</label></td>
+            <td align="center"><label>Score 50</label></td>
+            <td align="center"><label>Total all<br>dice</label></td>
+        </tr>
+        <tr>
+            <td align="center"><label id="3oak">___</label></td>
+            <td align="center"><label id="4oak">___</label></td>
+            <td align="center"><label id="fullhouse">___</label></td>
+            <td align="center"><label id="smstraight">___</label></td>
+            <td align="center"><label id="lgstraight">___</label></td>
+            <td align="center"><label id="yahtzee">___</label></td>
+            <td align="center"><label id="chance">___</label></td>
+        </tr>
+        <tr>
+            <td><br></td>
+        </tr>
+        <tr>
+            <td colspan=2><label>Top Bonus Score 35</label></td>
+            <!--<td align="right"></td>
+                <td colspan = 3 align="left">Total more than 63</td>-->
+
+            <td><label id="topBonus">___</label></td>
+        </tr>
+        <tr>
+            <td colspan=2 align="left"><label>Top Total</label></td>
+            <td><label id="topTotal">___</label></td>
+        </tr>
+        <tr>
+            <td colspan=2 align="left"><label>Extra Yahtzees</label></td>
+            <td><label id="numYahtzees">___</label></td>
+        </tr>
+        <tr>
+            <td colspan=2 align="left"><label>Score 100<br>per Yahtzee</label></td>
+            <td><label id="numYahtzeesScore">___</label></td>
+        </tr>
+        <tr>
+            <td colspan=2 align="left"><label>Bottom Total</label></td>
+            <td><label id="bottomTotal">___</label></td>
+        </tr>
+        <tr>
+            <td colspan=2 align="left"><label>Grand Total</label></td>
+            <td><label id="grandTotal">___</label></td>
+        </tr>
+    </table>
+
+    </div>
+    <!-- /main -->
+    <script src="imgs.js"></script>
+    <script src="slots.js"></script>
+    <script src="jquery-3.7.0.min.js"></script>
+    <script>
+        // Jquery Dependency
+        //this auto-formats the money-entry field
+
+        $("input[data-type='currency']").on({
+            keyup: function() {
+                formatCurrency($(this));
+            },
+            blur: function() {
+                formatCurrency($(this), "blur");
+            }
+        });
+
+
+        function formatNumber(n) {
+            // format number 1000000 to 1,234,567
+            return n.replace(/\D/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+        }
+
+
+        function formatCurrency(input, blur) {
+            // appends $ to value, validates decimal side
+            // and puts cursor back in right position.
+
+            // get input value
+            var input_val = input.val();
+
+            // don't validate empty input
+            if (input_val === "") {
+                return;
+            }
+
+            // original length
+            var original_len = input_val.length;
+
+            // initial caret position
+            var caret_pos = input.prop("selectionStart");
+
+            // check for decimal
+            if (input_val.indexOf(".") >= 0) {
+
+                // get position of first decimal
+                // this prevents multiple decimals from
+                // being entered
+                var decimal_pos = input_val.indexOf(".");
+
+                // split number by decimal point
+                var left_side = input_val.substring(0, decimal_pos);
+                var right_side = input_val.substring(decimal_pos);
+
+                // add commas to left side of number
+                left_side = formatNumber(left_side);
+
+                // validate right side
+                right_side = formatNumber(right_side);
+
+                // On blur make sure 2 numbers after decimal
+                if (blur === "blur") {
+                    right_side += "00";
+                }
+
+                // Limit decimal to only 2 digits
+                right_side = right_side.substring(0, 2);
+
+                // join number by .
+                input_val = "$" + left_side + "." + right_side;
+
+            }
+            else {
+                // no decimal entered
+                // add commas to number
+                // remove all non-digits
+                input_val = formatNumber(input_val);
+                input_val = "$" + input_val;
+
+                // final formatting
+                if (blur === "blur") {
+                    input_val += ".00";
+                }
+            }
+
+            // send updated string to input
+            input.val(input_val);
+
+            // put caret back in the right position
+            var updated_len = input_val.length;
+            caret_pos = updated_len - original_len + caret_pos;
+            input[0].setSelectionRange(caret_pos, caret_pos);
+        }
+    </script>
+</body>
+
+</html>
