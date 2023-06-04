@@ -1,0 +1,2 @@
+# slots
+Slots game
