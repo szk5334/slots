@@ -1,3 +1,15 @@
+const bonDice1 = document.getElementById("bonDice1")
+const bonDice2 = document.getElementById("bonDice2")
+const bonDice3 = document.getElementById("bonDice3")
+const bonDice4 = document.getElementById("bonDice4")
+const bonDice5 = document.getElementById("bonDice5")
+const bonCard1 = document.getElementById("bonCard1")
+const bonCard2 = document.getElementById("bonCard2")
+const bonCard3 = document.getElementById("bonCard3")
+const bonCard4 = document.getElementById("bonCard4")
+const bonCard5 = document.getElementById("bonCard5")
+
+
 const depositBtn = document.getElementById("depositBtn");
 const bet20 = document.getElementById("bet20");
 const bet40 = document.getElementById("bet40");
@@ -225,19 +237,19 @@ deck_A_low = {
     _jd: [suit.diamonds, rank_A_low.J, cardImgs[cards._jd]],
     _qd: [suit.diamonds, rank_A_low.Q, cardImgs[cards._qd]],
     _kd: [suit.diamonds, rank_A_low.K, cardImgs[cards._kd]],
-    _ac: [suit.diamonds, rank_A_low.A, cardImgs[cards._ac]],
-    _2c: [suit.diamonds, rank_A_low._2, cardImgs[cards._2c]],
-    _3c: [suit.diamonds, rank_A_low._3, cardImgs[cards._3c]],
-    _4c: [suit.diamonds, rank_A_low._4, cardImgs[cards._4c]],
-    _5c: [suit.diamonds, rank_A_low._5, cardImgs[cards._5c]],
-    _6c: [suit.diamonds, rank_A_low._6, cardImgs[cards._6c]],
-    _7c: [suit.diamonds, rank_A_low._7, cardImgs[cards._7c]],
-    _8c: [suit.diamonds, rank_A_low._8, cardImgs[cards._8c]],
-    _9c: [suit.diamonds, rank_A_low._9, cardImgs[cards._9c]],
-    _10c: [suit.diamonds, rank_A_low._10, cardImgs[cards._10c]],
-    _jc: [suit.diamonds, rank_A_low.J, cardImgs[cards._jc]],
-    _qc: [suit.diamonds, rank_A_low.Q, cardImgs[cards._qc]],
-    _kc: [suit.diamonds, rank_A_low.K, cardImgs[cards.kc]],
+    _ac: [suit.clubs, rank_A_low.A, cardImgs[cards._ac]],
+    _2c: [suit.clubs, rank_A_low._2, cardImgs[cards._2c]],
+    _3c: [suit.clubs, rank_A_low._3, cardImgs[cards._3c]],
+    _4c: [suit.clubs, rank_A_low._4, cardImgs[cards._4c]],
+    _5c: [suit.clubs, rank_A_low._5, cardImgs[cards._5c]],
+    _6c: [suit.clubs, rank_A_low._6, cardImgs[cards._6c]],
+    _7c: [suit.clubs, rank_A_low._7, cardImgs[cards._7c]],
+    _8c: [suit.clubs, rank_A_low._8, cardImgs[cards._8c]],
+    _9c: [suit.clubs, rank_A_low._9, cardImgs[cards._9c]],
+    _10c: [suit.clubs, rank_A_low._10, cardImgs[cards._10c]],
+    _jc: [suit.clubs, rank_A_low.J, cardImgs[cards._jc]],
+    _qc: [suit.clubs, rank_A_low.Q, cardImgs[cards._qc]],
+    _kc: [suit.clubs, rank_A_low.K, cardImgs[cards._kc]],
 }
 
 deck_A_high = {
@@ -280,19 +292,19 @@ deck_A_high = {
     _jd: [suit.diamonds, rank_A_high.J, cardImgs[cards._jd]],
     _qd: [suit.diamonds, rank_A_high.Q, cardImgs[cards._qd]],
     _kd: [suit.diamonds, rank_A_high.K, cardImgs[cards._kd]],
-    _ac: [suit.diamonds, rank_A_high.A, cardImgs[cards._ac]],
-    _2c: [suit.diamonds, rank_A_high._2, cardImgs[cards._2c]],
-    _3c: [suit.diamonds, rank_A_high._3, cardImgs[cards._3c]],
-    _4c: [suit.diamonds, rank_A_high._4, cardImgs[cards._4c]],
-    _5c: [suit.diamonds, rank_A_high._5, cardImgs[cards._5c]],
-    _6c: [suit.diamonds, rank_A_high._6, cardImgs[cards._6c]],
-    _7c: [suit.diamonds, rank_A_high._7, cardImgs[cards._7c]],
-    _8c: [suit.diamonds, rank_A_high._8, cardImgs[cards._8c]],
-    _9c: [suit.diamonds, rank_A_high._9, cardImgs[cards._9c]],
-    _10c: [suit.diamonds, rank_A_high._10, cardImgs[cards._10c]],
-    _jc: [suit.diamonds, rank_A_high.J, cardImgs[cards._jc]],
-    _qc: [suit.diamonds, rank_A_high.Q, cardImgs[cards._qc]],
-    _kc: [suit.diamonds, rank_A_high.K, cardImgs[cards.kc]],
+    _ac: [suit.clubs, rank_A_high.A, cardImgs[cards._ac]],
+    _2c: [suit.clubs, rank_A_high._2, cardImgs[cards._2c]],
+    _3c: [suit.clubs, rank_A_high._3, cardImgs[cards._3c]],
+    _4c: [suit.clubs, rank_A_high._4, cardImgs[cards._4c]],
+    _5c: [suit.clubs, rank_A_high._5, cardImgs[cards._5c]],
+    _6c: [suit.clubs, rank_A_high._6, cardImgs[cards._6c]],
+    _7c: [suit.clubs, rank_A_high._7, cardImgs[cards._7c]],
+    _8c: [suit.clubs, rank_A_high._8, cardImgs[cards._8c]],
+    _9c: [suit.clubs, rank_A_high._9, cardImgs[cards._9c]],
+    _10c: [suit.clubs, rank_A_high._10, cardImgs[cards._10c]],
+    _jc: [suit.clubs, rank_A_high.J, cardImgs[cards._jc]],
+    _qc: [suit.clubs, rank_A_high.Q, cardImgs[cards._qc]],
+    _kc: [suit.clubs, rank_A_high.K, cardImgs[cards._kc]],
 }
 
 deck_BJ = {
@@ -335,19 +347,19 @@ deck_BJ = {
     _jd: [suit.diamonds, rank_BJ.J, cardImgs[cards._jd]],
     _qd: [suit.diamonds, rank_BJ.Q, cardImgs[cards._qd]],
     _kd: [suit.diamonds, rank_BJ.K, cardImgs[cards._kd]],
-    _ac: [suit.diamonds, rank_BJ.A1, cardImgs[cards._ac]],
-    _2c: [suit.diamonds, rank_BJ._2, cardImgs[cards._2c]],
-    _3c: [suit.diamonds, rank_BJ._3, cardImgs[cards._3c]],
-    _4c: [suit.diamonds, rank_BJ._4, cardImgs[cards._4c]],
-    _5c: [suit.diamonds, rank_BJ._5, cardImgs[cards._5c]],
-    _6c: [suit.diamonds, rank_BJ._6, cardImgs[cards._6c]],
-    _7c: [suit.diamonds, rank_BJ._7, cardImgs[cards._7c]],
-    _8c: [suit.diamonds, rank_BJ._8, cardImgs[cards._8c]],
-    _9c: [suit.diamonds, rank_BJ._9, cardImgs[cards._9c]],
-    _10c: [suit.diamonds, rank_BJ._10, cardImgs[cards._10c]],
-    _jc: [suit.diamonds, rank_BJ.J, cardImgs[cards._jc]],
-    _qc: [suit.diamonds, rank_BJ.Q, cardImgs[cards._qc]],
-    _kc: [suit.diamonds, rank_BJ.K, cardImgs[cards.kc]],
+    _ac: [suit.clubs, rank_BJ.A1, cardImgs[cards._ac]],
+    _2c: [suit.clubs, rank_BJ._2, cardImgs[cards._2c]],
+    _3c: [suit.clubs, rank_BJ._3, cardImgs[cards._3c]],
+    _4c: [suit.clubs, rank_BJ._4, cardImgs[cards._4c]],
+    _5c: [suit.clubs, rank_BJ._5, cardImgs[cards._5c]],
+    _6c: [suit.clubs, rank_BJ._6, cardImgs[cards._6c]],
+    _7c: [suit.clubs, rank_BJ._7, cardImgs[cards._7c]],
+    _8c: [suit.clubs, rank_BJ._8, cardImgs[cards._8c]],
+    _9c: [suit.clubs, rank_BJ._9, cardImgs[cards._9c]],
+    _10c: [suit.clubs, rank_BJ._10, cardImgs[cards._10c]],
+    _jc: [suit.clubs, rank_BJ.J, cardImgs[cards._jc]],
+    _qc: [suit.clubs, rank_BJ.Q, cardImgs[cards._qc]],
+    _kc: [suit.clubs, rank_BJ.K, cardImgs[cards._kc]],
 }
 
 
@@ -916,13 +928,16 @@ function showYahtzeeScoring() {
 
 function newDeck(){
     for (let i = 0; i < cardImgs.length; i++){
-        deck[i] = cardImgs[i]
+        deck[i] = deck_A_high[Object.keys(cards)[i]]
     }
 }
 
-function deal(deck){
-    return(deck.pop(Math.random(deck.length)))
+function deal(){
+    cardPos = Math.floor(Math.random() * deck.length)
+    card = deck.splice(cardPos,1)[0]
+    return card;
 }
+
 
 function countBooty(line, bet) {
 
@@ -1681,14 +1696,24 @@ betMax.addEventListener('click', function() {
     bet.innerHTML = "5.00"
 })
 
+function updateCardDie(dice, card){
+    dice.style.backgroundImage = "url(\'" + card[2] + "\')"
+    dice.setAttribute("item", JSON.stringify(card))
+}
+
 function updateDie(dice, item) {
-    dice.style.backgroundImage = "url(\'" + imgDir + imgs[items[itemDist[item]]]/*.replace(/(\r\n|\n|\r)/gm, "")*/ + "\')"
+    dice.style.backgroundImage = "url(\'" + imgDir + imgs[items[itemDist[item]]] + "\')"
     dice.setAttribute("item", items[itemDist[item]])
 }
 
 rollBtn.addEventListener('click', function() {
     let bal = Number(balance.getAttribute("total"))
 
+    let bonDice1val = Math.floor(Math.random() * yahtzeeDice.length)
+    let bonDice2val = Math.floor(Math.random() * yahtzeeDice.length)
+    let bonDice3val = Math.floor(Math.random() * yahtzeeDice.length)
+    let bonDice4val = Math.floor(Math.random() * yahtzeeDice.length)
+    let bonDice5val = Math.floor(Math.random() * yahtzeeDice.length)
     let dice1val = Math.floor(Math.random() * itemDist.length)
     let dice2val = Math.floor(Math.random() * itemDist.length)
     let dice3val = Math.floor(Math.random() * itemDist.length)
@@ -1704,6 +1729,26 @@ rollBtn.addEventListener('click', function() {
     let dice13val = Math.floor(Math.random() * itemDist.length)
     let dice14val = Math.floor(Math.random() * itemDist.length)
     let dice15val = Math.floor(Math.random() * itemDist.length)
+    
+    //updateYahtzeeDie(bonDice1,bonDice1val)
+    //updateYahtzeeDie(bonDice2,bonDice2val)
+    //updateYahtzeeDie(bonDice3,bonDice3val)
+    //updateYahtzeeDie(bonDice4,bonDice4val)
+    //updateYahtzeeDie(bonDice5,bonDice5val)
+    
+    newDeck()
+    bonCard1val = deal()
+    bonCard2val = deal()
+    bonCard3val = deal()
+    bonCard4val = deal()
+    bonCard5val = deal()
+    
+    updateCardDie(bonCard1, bonCard1val)
+    updateCardDie(bonCard2, bonCard2val)
+    updateCardDie(bonCard3, bonCard3val)
+    updateCardDie(bonCard4, bonCard4val)
+    updateCardDie(bonCard5, bonCard5val)
+    
     if (dice1.getAttribute("click") != "true") {
         updateDie(dice1, dice1val)
     }
