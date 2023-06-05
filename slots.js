@@ -10,8 +10,13 @@ const rollBtn = document.getElementById("roll");
 const score = document.getElementById("score");
 const balance = document.getElementById("balance");
 balance.setAttribute("total", 0)
-const rounds = document.getElementById("rounds");
+//const rounds = document.getElementById("rounds");
 const rolls = document.getElementById("rolls");
+rolls.setAttribute("total", 3)
+rolls.innerHTML = 3
+const rollsLabel = document.getElementById("rollsLabel")
+//rounds.setAttribute("total", 13)
+//rounds.innerHTML = 13
 const betValue = document.getElementById("bet");
 const returnBtn = document.getElementById("return")
 const gotoYahtzeeBtn = document.getElementById("gotoYahtzee")
@@ -195,58 +200,173 @@ deck_A_low = {
     _qs: [suit.spades, rank_A_low.Q, cardImgs[cards._qs]],
     _ks: [suit.spades, rank_A_low.K, cardImgs[cards._ks]],
     _ah: [suit.hearts, rank_A_low.A, cardImgs[cards._ah]],
-    _2h: [suit.hearts, rank_A_low._2, cardImgs[cards._ah]],
-    _3h: [suit.hearts, rank_A_low._3, cardImgs[cards._ah]],
-    _4h: [suit.hearts, rank_A_low._4, cardImgs[cards._ah]],
-    _5h: [suit.hearts, rank_A_low._5, cardImgs[cards._ah]],
-    _6h: [suit.hearts, rank_A_low._6, cardImgs[cards._ah]],
-    _7h: [suit.hearts, rank_A_low._7, cardImgs[cards._ah]],
-    _8h: [suit.hearts, rank_A_low._8, cardImgs[cards._ah]],
-    _9h: [suit.hearts, rank_A_low._9, cardImgs[cards._ah]],
-    _10h: [suit.hearts, rank_A_low._10, cardImgs[cards._ah]],
-    _jh: [suit.hearts, rank_A_low.J, cardImgs[cards._ah]],
-    _qh: [suit.hearts, rank_A_low.Q, cardImgs[cards._ah]],
-    _kh: [suit.hearts, rank_A_low.K, cardImgs[cards._ah]],
-    _ad: [suit.diamonds, rank_A_low.A, cardImgs[cards._a]],
-    _2d: [suit.diamonds, rank_A_low._2, cardImgs[cards._ah]],
-    _3d: [suit.diamonds, rank_A_low._3, cardImgs[cards._ah]],
-    _4d: [suit.diamonds, rank_A_low._4, cardImgs[cards._ah]],
-    _5d: [suit.diamonds, rank_A_low._5, cardImgs[cards._ah]],
-    _6d: [suit.diamonds, rank_A_low._6, cardImgs[cards._ah]],
-    _7d: [suit.diamonds, rank_A_low._7, cardImgs[cards._ah]],
-    _8d: [suit.diamonds, rank_A_low._8, cardImgs[cards._ah]],
-    _9d: [suit.diamonds, rank_A_low._9, cardImgs[cards._ah]],
-    _10d: [suit.diamonds, rank_A_low._10, cardImgs[cards._ah]],
-    _jd: [suit.diamonds, rank_A_low.J, cardImgs[cards._ah]],
-    _qd: [suit.diamonds, rank_A_low.Q, cardImgs[cards._ah]],
-    _kd: [suit.diamonds, rank_A_low.K, cardImgs[cards._ah]],
-    _ac: 39,
-    _2c: 40,
-    _3c: 41,
-    _4c: 42,
-    _5c: 43,
-    _6c: 44,
-    _7c: 45,
-    _8c: 46,
-    _9c: 47,
-    _10c: 48,
-    _jc: 49,
-    _qc: 50,
-    _kc: 51
+    _2h: [suit.hearts, rank_A_low._2, cardImgs[cards._2h]],
+    _3h: [suit.hearts, rank_A_low._3, cardImgs[cards._3h]],
+    _4h: [suit.hearts, rank_A_low._4, cardImgs[cards._4h]],
+    _5h: [suit.hearts, rank_A_low._5, cardImgs[cards._5h]],
+    _6h: [suit.hearts, rank_A_low._6, cardImgs[cards._6h]],
+    _7h: [suit.hearts, rank_A_low._7, cardImgs[cards._7h]],
+    _8h: [suit.hearts, rank_A_low._8, cardImgs[cards._8h]],
+    _9h: [suit.hearts, rank_A_low._9, cardImgs[cards._9h]],
+    _10h: [suit.hearts, rank_A_low._10, cardImgs[cards._10h]],
+    _jh: [suit.hearts, rank_A_low.J, cardImgs[cards._jh]],
+    _qh: [suit.hearts, rank_A_low.Q, cardImgs[cards._qh]],
+    _kh: [suit.hearts, rank_A_low.K, cardImgs[cards._kh]],
+    _ad: [suit.diamonds, rank_A_low.A, cardImgs[cards._ad]],
+    _2d: [suit.diamonds, rank_A_low._2, cardImgs[cards._2d]],
+    _3d: [suit.diamonds, rank_A_low._3, cardImgs[cards._3d]],
+    _4d: [suit.diamonds, rank_A_low._4, cardImgs[cards._4d]],
+    _5d: [suit.diamonds, rank_A_low._5, cardImgs[cards._5d]],
+    _6d: [suit.diamonds, rank_A_low._6, cardImgs[cards._6d]],
+    _7d: [suit.diamonds, rank_A_low._7, cardImgs[cards._7d]],
+    _8d: [suit.diamonds, rank_A_low._8, cardImgs[cards._8d]],
+    _9d: [suit.diamonds, rank_A_low._9, cardImgs[cards._9d]],
+    _10d: [suit.diamonds, rank_A_low._10, cardImgs[cards._10d]],
+    _jd: [suit.diamonds, rank_A_low.J, cardImgs[cards._jd]],
+    _qd: [suit.diamonds, rank_A_low.Q, cardImgs[cards._qd]],
+    _kd: [suit.diamonds, rank_A_low.K, cardImgs[cards._kd]],
+    _ac: [suit.diamonds, rank_A_low.A, cardImgs[cards._ac]],
+    _2c: [suit.diamonds, rank_A_low._2, cardImgs[cards._2c]],
+    _3c: [suit.diamonds, rank_A_low._3, cardImgs[cards._3c]],
+    _4c: [suit.diamonds, rank_A_low._4, cardImgs[cards._4c]],
+    _5c: [suit.diamonds, rank_A_low._5, cardImgs[cards._5c]],
+    _6c: [suit.diamonds, rank_A_low._6, cardImgs[cards._6c]],
+    _7c: [suit.diamonds, rank_A_low._7, cardImgs[cards._7c]],
+    _8c: [suit.diamonds, rank_A_low._8, cardImgs[cards._8c]],
+    _9c: [suit.diamonds, rank_A_low._9, cardImgs[cards._9c]],
+    _10c: [suit.diamonds, rank_A_low._10, cardImgs[cards._10c]],
+    _jc: [suit.diamonds, rank_A_low.J, cardImgs[cards._jc]],
+    _qc: [suit.diamonds, rank_A_low.Q, cardImgs[cards._qc]],
+    _kc: [suit.diamonds, rank_A_low.K, cardImgs[cards.kc]],
+}
+
+deck_A_high = {
+    _as: [suit.spades, rank_A_high.A, cardImgs[cards._as]],
+    _2s: [suit.spades, rank_A_high._2, cardImgs[cards._2s]],
+    _3s: [suit.spades, rank_A_high._3, cardImgs[cards._3s]],
+    _4s: [suit.spades, rank_A_high._4, cardImgs[cards._4s]],
+    _5s: [suit.spades, rank_A_high._5, cardImgs[cards._5s]],
+    _6s: [suit.spades, rank_A_high._6, cardImgs[cards._6s]],
+    _7s: [suit.spades, rank_A_high._7, cardImgs[cards._7s]],
+    _8s: [suit.spades, rank_A_high._8, cardImgs[cards._8s]],
+    _9s: [suit.spades, rank_A_high._9, cardImgs[cards._9s]],
+    _10s: [suit.spades, rank_A_high._10, cardImgs[cards._10s]],
+    _js: [suit.spades, rank_A_high.J, cardImgs[cards._js]],
+    _qs: [suit.spades, rank_A_high.Q, cardImgs[cards._qs]],
+    _ks: [suit.spades, rank_A_high.K, cardImgs[cards._ks]],
+    _ah: [suit.hearts, rank_A_high.A, cardImgs[cards._ah]],
+    _2h: [suit.hearts, rank_A_high._2, cardImgs[cards._2h]],
+    _3h: [suit.hearts, rank_A_high._3, cardImgs[cards._3h]],
+    _4h: [suit.hearts, rank_A_high._4, cardImgs[cards._4h]],
+    _5h: [suit.hearts, rank_A_high._5, cardImgs[cards._5h]],
+    _6h: [suit.hearts, rank_A_high._6, cardImgs[cards._6h]],
+    _7h: [suit.hearts, rank_A_high._7, cardImgs[cards._7h]],
+    _8h: [suit.hearts, rank_A_high._8, cardImgs[cards._8h]],
+    _9h: [suit.hearts, rank_A_high._9, cardImgs[cards._9h]],
+    _10h: [suit.hearts, rank_A_high._10, cardImgs[cards._10h]],
+    _jh: [suit.hearts, rank_A_high.J, cardImgs[cards._jh]],
+    _qh: [suit.hearts, rank_A_high.Q, cardImgs[cards._qh]],
+    _kh: [suit.hearts, rank_A_high.K, cardImgs[cards._kh]],
+    _ad: [suit.diamonds, rank_A_high.A, cardImgs[cards._ad]],
+    _2d: [suit.diamonds, rank_A_high._2, cardImgs[cards._2d]],
+    _3d: [suit.diamonds, rank_A_high._3, cardImgs[cards._3d]],
+    _4d: [suit.diamonds, rank_A_high._4, cardImgs[cards._4d]],
+    _5d: [suit.diamonds, rank_A_high._5, cardImgs[cards._5d]],
+    _6d: [suit.diamonds, rank_A_high._6, cardImgs[cards._6d]],
+    _7d: [suit.diamonds, rank_A_high._7, cardImgs[cards._7d]],
+    _8d: [suit.diamonds, rank_A_high._8, cardImgs[cards._8d]],
+    _9d: [suit.diamonds, rank_A_high._9, cardImgs[cards._9d]],
+    _10d: [suit.diamonds, rank_A_high._10, cardImgs[cards._10d]],
+    _jd: [suit.diamonds, rank_A_high.J, cardImgs[cards._jd]],
+    _qd: [suit.diamonds, rank_A_high.Q, cardImgs[cards._qd]],
+    _kd: [suit.diamonds, rank_A_high.K, cardImgs[cards._kd]],
+    _ac: [suit.diamonds, rank_A_high.A, cardImgs[cards._ac]],
+    _2c: [suit.diamonds, rank_A_high._2, cardImgs[cards._2c]],
+    _3c: [suit.diamonds, rank_A_high._3, cardImgs[cards._3c]],
+    _4c: [suit.diamonds, rank_A_high._4, cardImgs[cards._4c]],
+    _5c: [suit.diamonds, rank_A_high._5, cardImgs[cards._5c]],
+    _6c: [suit.diamonds, rank_A_high._6, cardImgs[cards._6c]],
+    _7c: [suit.diamonds, rank_A_high._7, cardImgs[cards._7c]],
+    _8c: [suit.diamonds, rank_A_high._8, cardImgs[cards._8c]],
+    _9c: [suit.diamonds, rank_A_high._9, cardImgs[cards._9c]],
+    _10c: [suit.diamonds, rank_A_high._10, cardImgs[cards._10c]],
+    _jc: [suit.diamonds, rank_A_high.J, cardImgs[cards._jc]],
+    _qc: [suit.diamonds, rank_A_high.Q, cardImgs[cards._qc]],
+    _kc: [suit.diamonds, rank_A_high.K, cardImgs[cards.kc]],
+}
+
+deck_BJ = {
+    _as: [suit.spades, rank_BJ.A1, cardImgs[cards._as]],
+    _2s: [suit.spades, rank_BJ._2, cardImgs[cards._2s]],
+    _3s: [suit.spades, rank_BJ._3, cardImgs[cards._3s]],
+    _4s: [suit.spades, rank_BJ._4, cardImgs[cards._4s]],
+    _5s: [suit.spades, rank_BJ._5, cardImgs[cards._5s]],
+    _6s: [suit.spades, rank_BJ._6, cardImgs[cards._6s]],
+    _7s: [suit.spades, rank_BJ._7, cardImgs[cards._7s]],
+    _8s: [suit.spades, rank_BJ._8, cardImgs[cards._8s]],
+    _9s: [suit.spades, rank_BJ._9, cardImgs[cards._9s]],
+    _10s: [suit.spades, rank_BJ._10, cardImgs[cards._10s]],
+    _js: [suit.spades, rank_BJ.J, cardImgs[cards._js]],
+    _qs: [suit.spades, rank_BJ.Q, cardImgs[cards._qs]],
+    _ks: [suit.spades, rank_BJ.K, cardImgs[cards._ks]],
+    _ah: [suit.hearts, rank_BJ.A1, cardImgs[cards._ah]],
+    _2h: [suit.hearts, rank_BJ._2, cardImgs[cards._2h]],
+    _3h: [suit.hearts, rank_BJ._3, cardImgs[cards._3h]],
+    _4h: [suit.hearts, rank_BJ._4, cardImgs[cards._4h]],
+    _5h: [suit.hearts, rank_BJ._5, cardImgs[cards._5h]],
+    _6h: [suit.hearts, rank_BJ._6, cardImgs[cards._6h]],
+    _7h: [suit.hearts, rank_BJ._7, cardImgs[cards._7h]],
+    _8h: [suit.hearts, rank_BJ._8, cardImgs[cards._8h]],
+    _9h: [suit.hearts, rank_BJ._9, cardImgs[cards._9h]],
+    _10h: [suit.hearts, rank_BJ._10, cardImgs[cards._10h]],
+    _jh: [suit.hearts, rank_BJ.J, cardImgs[cards._jh]],
+    _qh: [suit.hearts, rank_BJ.Q, cardImgs[cards._qh]],
+    _kh: [suit.hearts, rank_BJ.K, cardImgs[cards._kh]],
+    _ad: [suit.diamonds, rank_BJ.A1, cardImgs[cards._ad]],
+    _2d: [suit.diamonds, rank_BJ._2, cardImgs[cards._2d]],
+    _3d: [suit.diamonds, rank_BJ._3, cardImgs[cards._3d]],
+    _4d: [suit.diamonds, rank_BJ._4, cardImgs[cards._4d]],
+    _5d: [suit.diamonds, rank_BJ._5, cardImgs[cards._5d]],
+    _6d: [suit.diamonds, rank_BJ._6, cardImgs[cards._6d]],
+    _7d: [suit.diamonds, rank_BJ._7, cardImgs[cards._7d]],
+    _8d: [suit.diamonds, rank_BJ._8, cardImgs[cards._8d]],
+    _9d: [suit.diamonds, rank_BJ._9, cardImgs[cards._9d]],
+    _10d: [suit.diamonds, rank_BJ._10, cardImgs[cards._10d]],
+    _jd: [suit.diamonds, rank_BJ.J, cardImgs[cards._jd]],
+    _qd: [suit.diamonds, rank_BJ.Q, cardImgs[cards._qd]],
+    _kd: [suit.diamonds, rank_BJ.K, cardImgs[cards._kd]],
+    _ac: [suit.diamonds, rank_BJ.A1, cardImgs[cards._ac]],
+    _2c: [suit.diamonds, rank_BJ._2, cardImgs[cards._2c]],
+    _3c: [suit.diamonds, rank_BJ._3, cardImgs[cards._3c]],
+    _4c: [suit.diamonds, rank_BJ._4, cardImgs[cards._4c]],
+    _5c: [suit.diamonds, rank_BJ._5, cardImgs[cards._5c]],
+    _6c: [suit.diamonds, rank_BJ._6, cardImgs[cards._6c]],
+    _7c: [suit.diamonds, rank_BJ._7, cardImgs[cards._7c]],
+    _8c: [suit.diamonds, rank_BJ._8, cardImgs[cards._8c]],
+    _9c: [suit.diamonds, rank_BJ._9, cardImgs[cards._9c]],
+    _10c: [suit.diamonds, rank_BJ._10, cardImgs[cards._10c]],
+    _jc: [suit.diamonds, rank_BJ.J, cardImgs[cards._jc]],
+    _qc: [suit.diamonds, rank_BJ.Q, cardImgs[cards._qc]],
+    _kc: [suit.diamonds, rank_BJ.K, cardImgs[cards.kc]],
 }
 
 
 const yahtzeeRollBtn = document.getElementById("yahtzeeRoll")
 const dice21 = document.getElementById("dice21");
 dice21.setAttribute("click", false)
+dice21.setAttribute("item", -1)
 const dice22 = document.getElementById("dice22");
 dice22.setAttribute("click", false)
+dice22.setAttribute("item", -1)
 const dice23 = document.getElementById("dice23");
 dice23.setAttribute("click", false)
+dice23.setAttribute("item", -1)
 const dice24 = document.getElementById("dice24");
 dice24.setAttribute("click", false)
+dice24.setAttribute("item", -1)
 const dice25 = document.getElementById("dice25");
 dice25.setAttribute("click", false)
+dice25.setAttribute("item", -1)
 
 const yahtzeeTable = document.getElementById("yahtzeeGame");
 const yahtzeeScoreTable = document.getElementById("yahtzeeScore")
@@ -301,6 +421,12 @@ const bottomScore = document.getElementById("bottomTotal")
 bottomScore.setAttribute("total", 0)
 const grandScore = document.getElementById("grandTotal")
 grandScore.setAttribute("total", 0)
+const yahtzeeTopLabels = document.getElementById("yahtzeeTopLabels")
+yahtzeeTopLabels.style.display = "None"
+const yahtzeeBottomLabels = document.getElementById("yahtzeeBottomLabels")
+yahtzeeBottomLabels.style.display = "None"
+const yahtzeeTopInstructions = document.getElementById("yahtzeeTopInstructions")
+const yahtzeeBottomInstructions = document.getElementById("yahtzeeBottomInstructions")
 const yahtzeeLine = [dice21, dice22, dice23, dice24, dice25];
 const yahtzeeTopScoreLine = [y1sBtn, y2sBtn, y3sBtn, y4sBtn, y5sBtn, y6sBtn]
 const yahtzeeBottomScoreLine = [_3oakBtn, _4oakBtn, fullHouseBtn, smStraightBtn, lgStraightBtn, yahtzeeBtn, chanceBtn]
@@ -314,6 +440,8 @@ const yahtzeeDice = {
     _6: 5
 }
 
+yahtzeeTopComplete = false;
+yahtzeeBottomComplete = false;
 
 const imgDir = "";
 //const imgDir"img/"
@@ -634,7 +762,8 @@ initSlots();
 
 function initSlots() {
     rolls.style.display = "None"
-    rounds.style.display = "None"
+    rollsLabel.style.display = "None"
+    
     showSlots();
     hidePoker();
     hideYahtzee();
@@ -663,34 +792,25 @@ function prepPoker() {
 }
 
 function prepYahtzee() {
-    rolls.style.display = null
-    rolls.setAttribute("total", 3)
-    rolls.innerHTML = 3
-    rounds.style.display = null
-    rounds.setAttribute("total", 13)
-    rounds.innerHTML = 13
 
+    rolls.style.display = null
+    rollsLabel.style.display = null
     hideSlots();
     hidePoker();
     showYahtzee();
+    showYahtzeeBtns();
     showYahtzeeScoring();
     score.innerHTML = 0
 }
 
 function resetYahtzee() {
-    rolls.style.display = null
     rolls.setAttribute("total", 3)
     rolls.innerHTML = 3
-    rounds.style.display = null
-    rounds.setAttribute("total", 13)
-    rounds.innerHTML = 13
 
-    hideSlots();
-    hidePoker();
-    showYahtzee();
-    showYahtzeeScoring();
     score.innerHTML = 0
 
+    yahtzeeTopComplete = false
+    yahtzeeBottomComplete = false
 
     y1s.setAttribute("total", -1)
     y1s.innerHTML = "___"
@@ -755,6 +875,7 @@ function resetYahtzee() {
     bottomScore.setAttribute("total", 0)
     bottomScore.innerHTML = "___"
     grandScore.setAttribute("total", 0)
+    grandScore.innerHTML="___"
 }
 
 function hideSlots() {
@@ -778,10 +899,14 @@ function hideYahtzee() {
 }
 
 function showYahtzee() {
+    rolls.style.display = null
+    rollsLabel.style.display = null
     yahtzeeTable.style.display = null
 }
 
 function hideYahtzeeScoring() {
+    rolls.style.display = "None"
+    rollsLabel.style.display = "None"
     yahtzeeScoreTable.style.display = "None"
 }
 
@@ -1500,7 +1625,9 @@ function evalBonus() {
 }
 
 returnBtn.addEventListener('click', function() {
-    showYahtzeeBtns()
+    if(yahtzeeTopComplete && yahtzeeBottomComplete){
+        resetYahtzee()
+    }
     prepSlots()
     returnBtn.style.display = "None";
 
@@ -1845,16 +1972,16 @@ function clearYahtzeeDice() {
 
 function completeGame() {
 
-    if (completeTop() && completeBottom()) {
+    if (yahtzeeTopComplete & yahtzeeBottomComplete) {
         let yScore = Number(topScore.getAttribute("total")) + Number(bottomScore.getAttribute("total"))
         grandScore.setAttribute("total", yScore)
         grandScore.innerHTML = yScore
         score.innerHTML = yScore / 10
         score.setAttribute("total", yScore / 10)
         let bal = Number(balance.getAttribute("total"))
-        bal == yScore / 10
-        bal.setAttribute("total", bal)
-        bal.innerHTML = bal
+        bal += yScore / 10
+        balance.setAttribute("total", bal)
+        balance.innerHTML = bal
         alert("You won $" + yScore / 10 + "!")
         returnBtn.style.display = null
     }
@@ -1869,7 +1996,7 @@ function completeBottom() {
         complete = complete && yahtzeeBottomScoreLine[i].getAttribute("click") == "true"
     }
 
-    if (complete) {
+    if (complete && !yahtzeeBottomComplete) {
         let yScore = evalBottomScore();
         let ybonScore = Number(numYahtzees.getAttribute("total")) * 100
         bottomScore.setAttribute("total", yScore)
@@ -1882,10 +2009,11 @@ function completeBottom() {
 
         score.innerHTML = yScore / 10
         score.setAttribute("total", yScore / 10)
-        bal == yScore / 10
-        bal.setAttribute("total", bal)
-        bal.innerHTML = bal
+        bal += yScore / 10
+        balance.setAttribute("total", bal)
+        balance.innerHTML = bal
         alert("You won $" + yScore / 10 + "!")
+        yahtzeeBottomComplete=true;
         return true
     }
 
@@ -1900,7 +2028,7 @@ function completeTop() {
     for (let i = 0; i < yahtzeeTopScoreLine.length; i++) {
         complete = complete && yahtzeeTopScoreLine[i].getAttribute("click") == "true"
     }
-    if (complete) {
+    if (complete && !yahtzeeTopComplete) {
         let yScore = evalTopScore();
         if (yScore > 63) {
             topBonus.setAttribute("total", 35)
@@ -1912,6 +2040,7 @@ function completeTop() {
             bal += (yScore + 35) / 10
             balance.setAttribute("total", bal)
             balance.innerHTML = bal.toFixed(2)
+            yahtzeeTopComplete = true
         }
         else {
             topBonus.innerHTML = 0
@@ -1922,6 +2051,7 @@ function completeTop() {
             bal += yScore / 10
             balance.setAttribute("total", bal)
             balance.innerHTML = bal.toFixed(2)
+            yahtzeeTopComplete = true
         }
 
         return true
@@ -1999,6 +2129,10 @@ function hideYahtzeeBtns() {
     for (let i = 0; i < yahtzeeBottomScoreLine.length; i++) {
         yahtzeeBottomScoreLine[i].style.display = "None"
     }
+    yahtzeeTopInstructions.style.display = "None"
+    yahtzeeBottomInstructions.style.display = "None"
+    yahtzeeTopLabels.style.display = null
+    yahtzeeBottomLabels.style.display = null
 }
 
 function showYahtzeeBtns() {
@@ -2009,6 +2143,10 @@ function showYahtzeeBtns() {
     for (let i = 0; i < yahtzeeBottomScoreLine.length; i++) {
         yahtzeeBottomScoreLine[i].style.display = null
     }
+    yahtzeeTopInstructions.style.display = null
+    yahtzeeBottomInstructions.style.display = null
+    yahtzeeTopLabels.style.display = "None"
+    yahtzeeBottomLabels.style.display = "None"
 }
 
 yahtzeeRollBtn.addEventListener('click', function() {
@@ -2103,7 +2241,6 @@ y1sBtn.addEventListener('click', function() {
     let diceVals = evalYahtzee();
     let yScore = diceVals[yahtzeeDice._1] * 1
     let bal = Number(balance.getAttribute("total"))
-    let roundsLeft = Number(rounds.getAttribute("total"))
 
     y1s.setAttribute("total", yScore)
     y1s.innerHTML = yScore
@@ -2116,15 +2253,13 @@ y1sBtn.addEventListener('click', function() {
     balance.innerHTML = bal.toFixed(2)
     alert("You won $" + (yScore / 10).toFixed(2) + "!")
 
-    roundsLeft--;
-    rounds.setAttribute("total", roundsLeft)
-    rounds.innerHTML = roundsLeft
     rolls.setAttribute("total", 3)
     rolls.innerHTML = 3
     yahtzeeRollBtn.disabled = false
 
     clearYahtzeeDice()
     returnBtn.style.display = null
+    completeTop()
     completeGame()
     hideYahtzeeBtns()
 })
@@ -2133,7 +2268,6 @@ y2sBtn.addEventListener('click', function() {
     let diceVals = evalYahtzee();
     let yScore = diceVals[yahtzeeDice._2] * 2
     let bal = Number(balance.getAttribute("total"))
-    let roundsLeft = Number(rounds.getAttribute("total"))
 
     y2s.setAttribute("total", yScore)
     y2s.innerHTML = yScore
@@ -2146,15 +2280,13 @@ y2sBtn.addEventListener('click', function() {
     balance.innerHTML = bal.toFixed(2)
     alert("You won $" + (yScore / 10).toFixed(2) + "!")
 
-    roundsLeft--;
-    rounds.setAttribute("total", roundsLeft)
-    rounds.innerHTML = roundsLeft
     rolls.setAttribute("total", 3)
     rolls.innerHTML = 3
     yahtzeeRollBtn.disabled = false
 
     clearYahtzeeDice()
     returnBtn.style.display = null
+    completeTop()
     completeGame()
     hideYahtzeeBtns()
 
@@ -2164,7 +2296,6 @@ y3sBtn.addEventListener('click', function() {
     let diceVals = evalYahtzee();
     let yScore = diceVals[yahtzeeDice._3] * 3
     let bal = Number(balance.getAttribute("total"))
-    let roundsLeft = Number(rounds.getAttribute("total"))
 
     y3s.setAttribute("total", yScore)
     y3s.innerHTML = yScore
@@ -2177,15 +2308,13 @@ y3sBtn.addEventListener('click', function() {
     balance.innerHTML = bal.toFixed(2)
     alert("You won $" + (yScore / 10).toFixed(2) + "!")
 
-    roundsLeft--;
-    rounds.setAttribute("total", roundsLeft)
-    rounds.innerHTML = roundsLeft
     rolls.setAttribute("total", 3)
     rolls.innerHTML = 3
     yahtzeeRollBtn.disabled = false
 
     clearYahtzeeDice()
     returnBtn.style.display = null
+    completeTop()
     completeGame()
     hideYahtzeeBtns()
 
@@ -2195,7 +2324,6 @@ y4sBtn.addEventListener('click', function() {
     let diceVals = evalYahtzee();
     let yScore = diceVals[yahtzeeDice._4] * 4
     let bal = Number(balance.getAttribute("total"))
-    let roundsLeft = Number(rounds.getAttribute("total"))
 
     y4s.setAttribute("total", yScore)
     y4s.innerHTML = yScore
@@ -2208,15 +2336,13 @@ y4sBtn.addEventListener('click', function() {
     balance.innerHTML = bal.toFixed(2)
     alert("You won $" + (yScore / 10).toFixed(2) + "!")
 
-    roundsLeft--;
-    rounds.setAttribute("total", roundsLeft)
-    rounds.innerHTML = roundsLeft
     rolls.setAttribute("total", 3)
     rolls.innerHTML = 3
     yahtzeeRollBtn.disabled = false
 
     clearYahtzeeDice()
     returnBtn.style.display = null
+    completeTop()
     completeGame()
     hideYahtzeeBtns()
 
@@ -2226,7 +2352,6 @@ y5sBtn.addEventListener('click', function() {
     let diceVals = evalYahtzee();
     let yScore = diceVals[yahtzeeDice._5] * 5
     let bal = Number(balance.getAttribute("total"))
-    let roundsLeft = Number(rounds.getAttribute("total"))
 
     y5s.setAttribute("total", yScore)
     y5s.innerHTML = yScore
@@ -2239,15 +2364,13 @@ y5sBtn.addEventListener('click', function() {
     balance.innerHTML = bal.toFixed(2)
     alert("You won $" + (yScore / 10).toFixed(2) + "!")
 
-    roundsLeft--;
-    rounds.setAttribute("total", roundsLeft)
-    rounds.innerHTML = roundsLeft
     rolls.setAttribute("total", 3)
     rolls.innerHTML = 3
     yahtzeeRollBtn.disabled = false
 
     clearYahtzeeDice()
     returnBtn.style.display = null
+    completeTop()
     completeGame()
     hideYahtzeeBtns()
 
@@ -2257,7 +2380,6 @@ y6sBtn.addEventListener('click', function() {
     let diceVals = evalYahtzee();
     let yScore = diceVals[yahtzeeDice._6] * 6
     let bal = Number(balance.getAttribute("total"))
-    let roundsLeft = Number(rounds.getAttribute("total"))
 
     y6s.setAttribute("total", yScore)
     y6s.innerHTML = yScore
@@ -2269,16 +2391,14 @@ y6sBtn.addEventListener('click', function() {
     balance.setAttribute("total", bal)
     balance.innerHTML = bal.toFixed(2)
     alert("You won $" + (yScore / 10).toFixed(2) + "!")
-
-    roundsLeft--;
-    rounds.setAttribute("total", roundsLeft)
-    rounds.innerHTML = roundsLeft
+    
     rolls.setAttribute("total", 3)
     rolls.innerHTML = 3
     yahtzeeRollBtn.disabled = false
 
     clearYahtzeeDice()
     returnBtn.style.display = null
+    completeTop()
     completeGame()
     hideYahtzeeBtns()
 
@@ -2293,7 +2413,6 @@ _3oakBtn.addEventListener('click', function() {
         diceVals[yahtzeeDice._5] * 5 +
         diceVals[yahtzeeDice._6] * 6)
     let bal = Number(balance.getAttribute("total"))
-    let roundsLeft = Number(rounds.getAttribute("total"))
     _3oakBtn.setAttribute("click", "true")
 
     has3oak = false;
@@ -2328,9 +2447,6 @@ _3oakBtn.addEventListener('click', function() {
         alert("You won $0.00")
     }
 
-    roundsLeft--;
-    rounds.setAttribute("total", roundsLeft)
-    rounds.innerHTML = roundsLeft
     rolls.setAttribute("total", 3)
     rolls.innerHTML = 3
     yahtzeeRollBtn.disabled = false
@@ -2339,6 +2455,7 @@ _3oakBtn.addEventListener('click', function() {
 
     clearYahtzeeDice()
     returnBtn.style.display = null
+    completeBottom()
     completeGame()
     hideYahtzeeBtns()
 
@@ -2353,7 +2470,6 @@ _4oakBtn.addEventListener('click', function() {
         diceVals[yahtzeeDice._5] * 5 +
         diceVals[yahtzeeDice._6] * 6)
     let bal = Number(balance.getAttribute("total"))
-    let roundsLeft = Number(rounds.getAttribute("total"))
     _4oakBtn.setAttribute("click", "true")
 
     has4oak = false;
@@ -2388,9 +2504,6 @@ _4oakBtn.addEventListener('click', function() {
         alert("You won $0.00")
     }
 
-    roundsLeft--;
-    rounds.setAttribute("total", roundsLeft)
-    rounds.innerHTML = roundsLeft
     rolls.setAttribute("total", 3)
     rolls.innerHTML = 3
     yahtzeeRollBtn.disabled = false
@@ -2399,6 +2512,7 @@ _4oakBtn.addEventListener('click', function() {
 
     clearYahtzeeDice()
     returnBtn.style.display = null
+    completeBottom()
     completeGame()
     hideYahtzeeBtns()
 
@@ -2408,7 +2522,6 @@ fullHouseBtn.addEventListener('click', function() {
     let diceVals = evalYahtzee();
     let yScore = 25
     let bal = Number(balance.getAttribute("total"))
-    let roundsLeft = Number(rounds.getAttribute("total"))
     fullHouseBtn.setAttribute("click", "true")
 
     hasfullhouse = false;
@@ -2455,9 +2568,6 @@ fullHouseBtn.addEventListener('click', function() {
         alert("You won $0.00")
     }
 
-    roundsLeft--;
-    rounds.setAttribute("total", roundsLeft)
-    rounds.innerHTML = roundsLeft
     rolls.setAttribute("total", 3)
     rolls.innerHTML = 3
     yahtzeeRollBtn.disabled = false
@@ -2466,6 +2576,7 @@ fullHouseBtn.addEventListener('click', function() {
 
     clearYahtzeeDice()
     returnBtn.style.display = null
+    completeBottom()
     completeGame()
     hideYahtzeeBtns()
 
@@ -2475,7 +2586,6 @@ smStraightBtn.addEventListener('click', function() {
     let diceVals = evalYahtzee();
     let yScore = 30
     let bal = Number(balance.getAttribute("total"))
-    let roundsLeft = Number(rounds.getAttribute("total"))
     smStraightBtn.setAttribute("click", "true")
 
     hasSmStraight = false;
@@ -2518,9 +2628,6 @@ smStraightBtn.addEventListener('click', function() {
         alert("You won $0.00")
     }
 
-    roundsLeft--;
-    rounds.setAttribute("total", roundsLeft)
-    rounds.innerHTML = roundsLeft
     rolls.setAttribute("total", 3)
     rolls.innerHTML = 3
     yahtzeeRollBtn.disabled = false
@@ -2529,6 +2636,7 @@ smStraightBtn.addEventListener('click', function() {
 
     clearYahtzeeDice()
     returnBtn.style.display = null
+    completeBottom()
     completeGame()
     hideYahtzeeBtns()
 
@@ -2538,7 +2646,6 @@ lgStraightBtn.addEventListener('click', function() {
     let diceVals = evalYahtzee();
     let yScore = 40
     let bal = Number(balance.getAttribute("total"))
-    let roundsLeft = Number(rounds.getAttribute("total"))
     lgStraightBtn.setAttribute("click", "true")
 
     hasLgStraight = false;
@@ -2579,9 +2686,6 @@ lgStraightBtn.addEventListener('click', function() {
         alert("You won $0.00")
     }
 
-    roundsLeft--;
-    rounds.setAttribute("total", roundsLeft)
-    rounds.innerHTML = roundsLeft
     rolls.setAttribute("total", 3)
     rolls.innerHTML = 3
     yahtzeeRollBtn.disabled = false
@@ -2590,6 +2694,7 @@ lgStraightBtn.addEventListener('click', function() {
 
     clearYahtzeeDice()
     returnBtn.style.display = null
+    completeBottom()
     completeGame()
     hideYahtzeeBtns()
 
@@ -2599,7 +2704,6 @@ yahtzeeBtn.addEventListener('click', function() {
     let diceVals = evalYahtzee();
     let yScore = 50
     let bal = Number(balance.getAttribute("total"))
-    let roundsLeft = Number(rounds.getAttribute("total"))
     yahtzeeBtn.setAttribute("click", "true")
 
 
@@ -2624,9 +2728,6 @@ yahtzeeBtn.addEventListener('click', function() {
         alert("You won $0.00")
     }
 
-    roundsLeft--;
-    rounds.setAttribute("total", roundsLeft)
-    rounds.innerHTML = roundsLeft
     rolls.setAttribute("total", 3)
     rolls.innerHTML = 3
     yahtzeeRollBtn.disabled = false
@@ -2635,6 +2736,7 @@ yahtzeeBtn.addEventListener('click', function() {
 
     clearYahtzeeDice()
     returnBtn.style.display = null
+    completeBottom()
     completeGame()
     hideYahtzeeBtns()
 
@@ -2649,7 +2751,6 @@ chanceBtn.addEventListener('click', function() {
         diceVals[yahtzeeDice._5] * 5 +
         diceVals[yahtzeeDice._6] * 6)
     let bal = Number(balance.getAttribute("total"))
-    let roundsLeft = Number(rounds.getAttribute("total"))
     chanceBtn.setAttribute("click", "true")
 
     let hasYahtzee = checkYahtzee(diceVals)
@@ -2667,9 +2768,6 @@ chanceBtn.addEventListener('click', function() {
     balance.innerHTML = bal.toFixed(2)
     alert("You won $" + (yScore / 10).toFixed(2) + "!")
 
-    roundsLeft--;
-    rounds.setAttribute("total", roundsLeft)
-    rounds.innerHTML = roundsLeft
     rolls.setAttribute("total", 3)
     rolls.innerHTML = 3
     yahtzeeRollBtn.disabled = false
@@ -2678,6 +2776,7 @@ chanceBtn.addEventListener('click', function() {
 
     clearYahtzeeDice()
     returnBtn.style.display = null
+    completeBottom()
     completeGame()
     hideYahtzeeBtns()
 
