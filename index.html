@@ -62,14 +62,14 @@
                     <label>SCORE:<br>$<span id="score">0</span></label>
                 </h3>
             </td>
-            <td width=125 height=25>
+           <!-- <td width=125 height=25>
                 <h3>
                     <label>Rounds: <span id="rounds">0</span></label>
                 </h3>
-            </td>
+            </td>-->
             <td width=125 height=25>
                 <h3>
-                    <label>Rolls: <span id="rolls" style="text-align:right">0</span></label>
+                    <label id="rollsLabel">Rolls: <span id="rolls" style="text-align:right">0</span></label>
                 </h3>
             </td>
         </tr>
@@ -217,6 +217,14 @@
     </tr>
 </table>
     <table id = "yahtzeeScore">
+        <tr id="yahtzeeTopLabels">
+            <td align="center"><label>1s</label></td>
+            <td align="center"><label>2s</label></td>
+            <td align="center"><label>3s</label></td>
+            <td align="center"><label>4s</label></td>
+            <td align="center"><label>5s</label></td>
+            <td align="center"><label>6s</label></td>
+        </tr>
         <tr>
             <td align="center"><button id="1sBtn" style=height:60px;width:60px>1s</button></td>
             <td align="center"><button id="2sBtn" style=height:60px;width:60px>2s</button></td>
@@ -225,7 +233,7 @@
             <td align="center"><button id="5sBtn" style=height:60px;width:60px>5s</button></td>
             <td align="center"><button id="6sBtn" style=height:60px;width:60px>6s</button></td>
         </tr>
-        <tr>
+        <tr id="yahtzeeTopInstructions">
             <td align="center"><label>Total 1s</label></td>
             <td align="center"><label>Total 2s</label></td>
             <td align="center"><label>Total 3s</label></td>
@@ -243,6 +251,15 @@
         </tr>
         <tr>
             <td><br></td>
+        </tr>
+        <tr id="yahtzeeBottomLabels">
+            <td align="center"><label>3 of a<br>Kind</label></td>
+            <td align="center"><label>4 of a<br>Kind</label></td>
+            <td align="center"><label>Full<br>House</label></td>
+            <td align="center"><label>Sm<br>Straight</label></td>
+            <td align="center"><label>Lg<br>Straight</label></td>
+            <td align="center"><label>Yahtzee</label></td>
+            <td align="center"><label>Chance</label></td>
         </tr>
         <tr>
             <td align="center"><button id="3oakBtn" style=height:60px;width:60px>3 of a Kind</button></td>
@@ -262,7 +279,7 @@
                 <td align="center">Seq of 5</td>
                 <td align="center">5 of a<br>Kind</td>
             </tr> -->
-        <tr>
+        <tr id="yahtzeeBottomInstructions">
             <td align="center"><label>Total all<br>dice</label></td>
             <td align="center"><label>Total all<br>dice</label></td>
             <td align="center"><label>Score 25</label></td>
