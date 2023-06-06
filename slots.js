@@ -8,7 +8,8 @@ const bonCard2 = document.getElementById("bonCard2")
 const bonCard3 = document.getElementById("bonCard3")
 const bonCard4 = document.getElementById("bonCard4")
 const bonCard5 = document.getElementById("bonCard5")
-
+const bonusDice = [bonDice1, bonDice2, bonDice3, bonDice4, bonDice5]
+const bonusCards = [bonCard1, bonCard2, bonCard3, bonCard4, bonCard5]
 
 const depositBtn = document.getElementById("depositBtn");
 const bet20 = document.getElementById("bet20");
@@ -362,6 +363,18 @@ deck_BJ = {
     _kc: [suit.clubs, rank_BJ.K, cardImgs[cards._kc]],
 }
 
+const hands = {
+    _2Pair: 0,
+    _3ofaKind: 1,
+    _flush: 2,
+    _straight: 3,
+    _fullHouse: 4,
+    _4ofaKind: 5,
+    _straightFlush: 6,
+    _royalFlush: 7,
+    _JacksorBetter:8
+}
+
 
 const yahtzeeRollBtn = document.getElementById("yahtzeeRoll")
 const dice21 = document.getElementById("dice21");
@@ -495,31 +508,31 @@ const items = {
 
 //array corresponding with how many times each symbol "appears on the reel"
 const weights = [];
-weights[items.coin] = 3;
-weights[items.crown] = 2;
-weights[items.jewel] = 1;
-weights[items.horseshoe] = 4;
-weights[items.clover] = 5;
-weights[items.bell] = 13;
-weights[items.strawberry] = 15;
-weights[items.bananas] = 15;
-weights[items.grapes] = 15;
-weights[items.orange] = 15;
-weights[items.lemon] = 15;
-weights[items.cherries] = 20;
-weights[items.seven] = 10;
-weights[items.win] = 6;
-weights[items.bar] = 6;
-weights[items.spade] = 6;
-weights[items.diamond] = 8;
-weights[items.club] = 9;
-weights[items.heart] = 8;
-weights[items._1] = 4;
-weights[items._2] = 4;
-weights[items._3] = 4;
-weights[items._4] = 4;
-weights[items._5] = 4;
-weights[items._6] = 4;
+weights[items.coin] = 6;
+weights[items.crown] = 4;
+weights[items.jewel] = 3;
+weights[items.horseshoe] = 6;
+weights[items.clover] = 6;
+weights[items.bell] = 19;
+weights[items.strawberry] = 20;
+weights[items.bananas] = 20;
+weights[items.grapes] = 20;
+weights[items.orange] = 20;
+weights[items.lemon] = 20;
+weights[items.cherries] = 21;
+weights[items.seven] = 16;
+weights[items.win] = 9;
+weights[items.bar] = 9;
+//weights[items.spade] = 6;
+//weights[items.diamond] = 8;
+//weights[items.club] = 9;
+//weights[items.heart] = 8;
+//weights[items._1] = 4;
+//weights[items._2] = 4;
+//weights[items._3] = 4;
+//weights[items._4] = 4;
+//weights[items._5] = 4;
+//weights[items._6] = 4;
 //weights[items.blank] = 10;
 
 const itemDist = createItemDist(items, weights);
@@ -936,6 +949,325 @@ function deal(){
     cardPos = Math.floor(Math.random() * deck.length)
     card = deck.splice(cardPos,1)[0]
     return card;
+}
+
+function evalHand(hand, bet){
+    switch (determineHand(hand)){
+        case hands._royalFlush:
+            if(bet >= 1){
+                return bet * 800
+            }
+            else{ return bet * 250 }
+            break
+        case hands._straightFlush:
+            return bet * 50
+            break
+        case hands._4ofaKind:
+            return bet * 25
+            break
+        case hands._fullHouse:
+            return bet * 9
+            break
+        case hands._straight:
+            return bet * 6
+            break
+        case hands._flush:
+            return bet * 4
+            break
+        case hands._3ofaKind:
+            return bet * 3
+            break
+        case hands._2Pair:
+            return bet * 2
+            break
+        case hands._JacksorBetter:
+            return bet
+            break
+        default:
+            return 0
+    }
+}
+
+function determineHand(hand){
+    
+    let spades = 0
+    let hearts = 0
+    let diamonds = 0
+    let clubs = 0
+    let _2 = 0
+    let _3 = 0
+    let _4 = 0
+    let _5 = 0
+    let _6 = 0
+    let _7 = 0
+    let _8 = 0
+    let _9 = 0
+    let _10 = 0
+    let _j = 0
+    let _q = 0
+    let _k = 0
+    let _a = 0
+    
+    
+        
+    for (let i = 0; i < hand.length; i++){
+        console.log("Card " + i + " - Suit: " + JSON.parse(hand[i].getAttribute("item"))[0] + " Rank: " + JSON.parse(hand[i].getAttribute("item"))[1])
+        //console.log(suit.spades, suit.hearts, suit.diamonds, suit.clubs)
+        //cardSuit = Number(JSON.parse(hand[i].getAttribute("item"))[0])
+        //if(cardSuit == suit.spades) { console.log("A Spade!")}
+        //else if (cardSuit == suit.hearts) { console.log("A Heart!")}
+        //else if (cardSuit == suit.diamonds) { console.log("A Diamond!")}
+        //else if (cardSuit == suit.clubs) { console.log("A Club!")}
+        //else { continue }
+        
+        
+        switch (Number(JSON.parse(hand[i].getAttribute("item"))[0])) {
+            case suit.spades:
+                spades++
+                break
+            case suit.hearts:
+                hearts++
+                break
+            case suit.diamonds:
+                diamonds++
+                break
+            case suit.clubs:
+                clubs++
+                break
+            default:
+                break
+        }
+    
+        switch (Number(JSON.parse(hand[i].getAttribute("item"))[1])) {
+            case rank_A_high.A:
+                _a++
+                break
+            case rank_A_high._2:
+                _2++
+                break
+            case rank_A_high._3:
+                break
+            case rank_A_high._4:
+                _4++
+                break
+            case rank_A_high._5:
+                _5++
+                break
+            case rank_A_high._6:
+                _6++
+                break
+            case rank_A_high._7:
+                _7++
+                break
+            case rank_A_high._8:
+                _8++
+                break
+            case rank_A_high._9:
+                _9++
+                break
+            case rank_A_high._10:
+                _10++
+                break
+            case rank_A_high.J:
+                _j++
+                break
+            case rank_A_high.Q:
+                _q++
+                break
+            case rank_A_high.K:
+                _k++
+                break
+            default:
+                break
+        }
+    }
+    cardVals=[spades, hearts, diamonds, clubs, _2, _3, _4, _5, _6, _7, _8, _9, _10, _j, _q, _k, _a]
+    console.log("Card Values: " + cardVals)
+    
+    if(isRoyalFlush(cardVals)){
+        return hands._royalFlush
+    }
+    else if (isStraightFlush(cardVals)){
+        return hands._straightFlush
+    }
+    else if (is4ofaKind(cardVals)){
+        return hands._4ofaKind
+    }
+    else if (isFullHouse(cardVals)){
+        return hands._fullHouse
+    }
+    else if (isStraight(cardVals)){
+        return hands._straight
+    }
+    else if (isFlush(cardVals)){
+        return hands._flush
+    }
+    else if (is3ofaKind){
+        return hands._3ofaKind
+    }
+    else if (is2Pair(cardVals)){
+        return hands._2Pair
+    }
+    else if (isJacksorBetter(cardVals)){
+        return hands._JacksorBetter
+    }
+    else { return -1 }
+}
+
+function isRoyalFlush(cardVals){
+    if (cardVals[12] == 1 &&
+    cardVals[13] == 1 &&
+    cardVals[14] == 1 &&
+    cardVals[15] == 1 &&
+    cardVals[16] == 1 &&
+    (cardVals[0] == 5 ||
+    cardVals[1] == 5 ||
+    cardVals[2] == 5 ||
+    cardVals[3] == 5)){
+        console.log("Royal Flush!")
+        return true
+    }
+    
+    return false
+}
+
+function isStraightFlush(cardVals){
+    if(((cardVals[16] == 1 && cardVals[4] == 1 && cardVals[5] == 1 && cardVals[6] == 1 && cardVals[7] == 1) ||
+    (cardVals[4] == 1 && cardVals[5] == 1 && cardVals[6] == 1 && cardVals[7] == 1 && cardVals[8] == 1) ||
+    (cardVals[5] == 1 && cardVals[6] == 1 && cardVals[7] == 1 && cardVals[8] == 1 && cardVals[9] == 1) ||
+    (cardVals[6] == 1 && cardVals[7] == 1 && cardVals[8] == 1 && cardVals[9] == 1 && cardVals[10] == 1) ||
+    (cardVals[7] == 1 && cardVals[8] == 1 && cardVals[9] == 1 && cardVals[10] == 1 && cardVals[11] == 1) ||
+    (cardVals[8] == 1 && cardVals[9] == 1 && cardVals[10] == 1 && cardVals[11] == 1 && cardVals[12] == 1) ||
+    (cardVals[9] == 1 && cardVals[10] == 1 && cardVals[11] == 1 && cardVals[12] == 1 && cardVals[13] == 1) ||
+    (cardVals[10] == 1 && cardVals[11] == 1 && cardVals[12] == 1 && cardVals[13] == 1 && cardVals[14] == 1) ||
+    (cardVals[11] == 1 && cardVals[12] == 1 && cardVals[13] == 1 && cardVals[14] == 1 && cardVals[15] == 1) ||
+    (cardVals[12] == 1 && cardVals[13] == 1 && cardVals[14] == 1 && cardVals[15] == 1 && cardVals[16] == 1)) &&
+    (cardVals[0] == 5 || cardVals[1] == 5 || cardVals[2] == 5 || cardVals[3] == 5)
+    ){
+        console.log("Straight Flush!")
+        return true
+    }
+    
+    return false
+}
+
+function is4ofaKind(cardVals){
+    if (cardVals[4] == 4 ||
+    cardVals[5] == 4 ||
+    cardVals[6] == 4 ||
+    cardVals[7] == 4 ||
+    cardVals[8] == 4 ||
+    cardVals[9] == 4 ||
+    cardVals[10] == 4 ||
+    cardVals[11] == 4 ||
+    cardVals[12] == 4 ||
+    cardVals[13] == 4 ||
+    cardVals[14] == 4 ||
+    cardVals[15] == 4 ||
+    cardVals[16] == 4){
+        console.log("4 of a Kind!")
+        return true
+    }
+    
+    return false
+}
+
+function isFullHouse(cardVals){
+    for(let i = 4; i < cardVals.length; i++){
+        if(cardVals[i] == 3)
+        {
+            for(let j = 4; j < cardVals.length; j++){
+                if(cardVals[j] == 2){
+                    console.log("Full House!")
+                    return true
+                }
+            }
+        }
+    }
+    
+    return false
+}
+
+function isStraight(cardVals){
+    if((cardVals[16] == 1 && cardVals[4] == 1 && cardVals[5] == 1 && cardVals[6] == 1 && cardVals[7] == 1) ||
+    (cardVals[4] == 1 && cardVals[5] == 1 && cardVals[6] == 1 && cardVals[7] == 1 && cardVals[8] == 1) ||
+    (cardVals[5] == 1 && cardVals[6] == 1 && cardVals[7] == 1 && cardVals[8] == 1 && cardVals[9] == 1) ||
+    (cardVals[6] == 1 && cardVals[7] == 1 && cardVals[8] == 1 && cardVals[9] == 1 && cardVals[10] == 1) ||
+    (cardVals[7] == 1 && cardVals[8] == 1 && cardVals[9] == 1 && cardVals[10] == 1 && cardVals[11] == 1) ||
+    (cardVals[8] == 1 && cardVals[9] == 1 && cardVals[10] == 1 && cardVals[11] == 1 && cardVals[12] == 1) ||
+    (cardVals[9] == 1 && cardVals[10] == 1 && cardVals[11] == 1 && cardVals[12] == 1 && cardVals[13] == 1) ||
+    (cardVals[10] == 1 && cardVals[11] == 1 && cardVals[12] == 1 && cardVals[13] == 1 && cardVals[14] == 1) ||
+    (cardVals[11] == 1 && cardVals[12] == 1 && cardVals[13] == 1 && cardVals[14] == 1 && cardVals[15] == 1) ||
+    (cardVals[12] == 1 && cardVals[13] == 1 && cardVals[14] == 1 && cardVals[15] == 1 && cardVals[16] == 1)){
+        console.log("Straight!")
+        return true
+    }
+    
+    return false
+}
+
+function isFlush(cardVals){
+    if(cardVals[0] == 5 ||
+    cardVals[1] == 5 ||
+    cardVals[2] == 5 ||
+    cardVals[3] == 5){
+        console.log("Flush!")
+        return true
+    }
+    
+    return false
+}
+
+function is3ofaKind(cardVals){
+    if(cardVals[4] == 3 ||
+    cardVals[5] == 3 ||
+    cardVals[6] == 3 ||
+    cardVals[7] == 3 ||
+    cardVals[8] == 3 ||
+    cardVals[9] == 3 ||
+    cardVals[10] == 3 ||
+    cardVals[11] == 3 ||
+    cardVals[12] == 3 ||
+    cardVals[13] == 3 ||
+    cardVals[14] == 3 ||
+    cardVals[15] == 3 ||
+    cardVals[16] == 3){
+        console.log("3 of a Kind!")
+        return true
+    }
+    
+    return false
+}
+
+function is2Pair(cardVals){
+    for(let i = 4; i < diceVals.length; i++){
+        if(cardVals[i] == 2)
+        {
+            let cardval = cardVals[i]
+            cardVals[i] = 0
+            for(let j = 4; j < diceVals.length; j++){
+                if(diceVals[j] == 2){
+                    console.log("2 Pair!")
+                    return true
+                }
+            cardVals[i] = cardVal
+            }
+        }
+    }
+    
+    return false
+}
+
+function isJacksorBetter(cardVals){
+    if(cardVals[13] == 2 ||
+    cardVals[14] == 2 ||
+    cardVals[15] == 2 ||
+    cardVals[16] == 2){
+        console.log("Jacks+!")
+        return true
+    }
+    
+    return false
 }
 
 
@@ -1512,6 +1844,7 @@ function evalBoard(bet) {
 
 function evalBonus() {
 
+    let hand = determineHand(bonusCards);
     let coin = 0;
     let crown = 0;
     let bell = 0;
@@ -1628,7 +1961,10 @@ function evalBonus() {
         alert("YAHTZEE BONUS")
         gotoYahtzeeBtn.style.display = null;
     }
-    else if (spade + heart + diamond + club > 6) {
+    else if (hand == hands._fullHouse ||
+    hand == hands._4ofaKind ||
+    hand == hands._straightFlush ||
+    hand == hands._royalFlush) {
         alert("POKER BONUS")
         gotoPokerBtn.style.display = null;
     }
@@ -1709,11 +2045,11 @@ function updateDie(dice, item) {
 rollBtn.addEventListener('click', function() {
     let bal = Number(balance.getAttribute("total"))
 
-    let bonDice1val = Math.floor(Math.random() * yahtzeeDice.length)
-    let bonDice2val = Math.floor(Math.random() * yahtzeeDice.length)
-    let bonDice3val = Math.floor(Math.random() * yahtzeeDice.length)
-    let bonDice4val = Math.floor(Math.random() * yahtzeeDice.length)
-    let bonDice5val = Math.floor(Math.random() * yahtzeeDice.length)
+    let bonDice1val = Math.floor(Math.random() * diceImgs.length)
+    let bonDice2val = Math.floor(Math.random() * diceImgs.length)
+    let bonDice3val = Math.floor(Math.random() * diceImgs.length)
+    let bonDice4val = Math.floor(Math.random() * diceImgs.length)
+    let bonDice5val = Math.floor(Math.random() * diceImgs.length)
     let dice1val = Math.floor(Math.random() * itemDist.length)
     let dice2val = Math.floor(Math.random() * itemDist.length)
     let dice3val = Math.floor(Math.random() * itemDist.length)
@@ -1730,11 +2066,11 @@ rollBtn.addEventListener('click', function() {
     let dice14val = Math.floor(Math.random() * itemDist.length)
     let dice15val = Math.floor(Math.random() * itemDist.length)
     
-    //updateYahtzeeDie(bonDice1,bonDice1val)
-    //updateYahtzeeDie(bonDice2,bonDice2val)
-    //updateYahtzeeDie(bonDice3,bonDice3val)
-    //updateYahtzeeDie(bonDice4,bonDice4val)
-    //updateYahtzeeDie(bonDice5,bonDice5val)
+    updateYahtzeeDie(bonDice1,bonDice1val)
+    updateYahtzeeDie(bonDice2,bonDice2val)
+    updateYahtzeeDie(bonDice3,bonDice3val)
+    updateYahtzeeDie(bonDice4,bonDice4val)
+    updateYahtzeeDie(bonDice5,bonDice5val)
     
     newDeck()
     bonCard1val = deal()
