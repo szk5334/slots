@@ -21,6 +21,7 @@ const betMax = document.getElementById("betMax");
 const rollBtn = document.getElementById("roll");
 
 const score = document.getElementById("score");
+score.setAttribute("total", 0)
 const balance = document.getElementById("balance");
 balance.setAttribute("total", 0)
 //const rounds = document.getElementById("rounds");
@@ -31,6 +32,7 @@ const rollsLabel = document.getElementById("rollsLabel")
 //rounds.setAttribute("total", 13)
 //rounds.innerHTML = 13
 const betValue = document.getElementById("bet");
+betValue.setAttribute("total", 0)
 const returnBtn = document.getElementById("return")
 const gotoYahtzeeBtn = document.getElementById("gotoYahtzee")
 const gotoPokerBtn = document.getElementById("gotoPoker")
@@ -511,8 +513,8 @@ const weights = [];
 weights[items.coin] = 6;
 weights[items.crown] = 4;
 weights[items.jewel] = 3;
-weights[items.horseshoe] = 6;
-weights[items.clover] = 6;
+weights[items.horseshoe] = 4;
+weights[items.clover] = 4;
 weights[items.bell] = 19;
 weights[items.strawberry] = 20;
 weights[items.bananas] = 20;
@@ -797,6 +799,7 @@ function initSlots() {
     returnBtn.style.display = "None"
     gotoYahtzeeBtn.style.display = "None"
     gotoPokerBtn.style.display = "None"
+    checkBetAndBalance()
 }
 
 function prepSlots() {
@@ -806,6 +809,7 @@ function prepSlots() {
     hideYahtzee();
     hideYahtzeeScoring();
     score.innerHTML = 0
+    checkBetAndBalance()
 }
 
 function prepPoker() {
@@ -903,6 +907,18 @@ function resetYahtzee() {
     grandScore.innerHTML="___"
 }
 
+function resetPoker(){
+    dealBtn.setAttribute("click", "false")
+    
+    for(let i = 0; i < pokerLine.length; i++){
+        pokerLine[i].setAttribute("item", null)
+        pokerLine[i].style.backgroundImage = "url(\'" + imgDir + "blank\')"
+        pokerLine[i].style.backgroundColor = "transparent"
+        pokerLine[i].setAttribute("click", "false")
+        pokerLine[i].style.borderColor = "transparent"
+    }
+}
+
 function hideSlots() {
     slotsTable.style.display = "None"
 }
@@ -917,6 +933,7 @@ function hidePoker() {
 
 function showPoker() {
     pokerTable.style.display = null
+    dealBtn.style.display = null
 }
 
 function hideYahtzee() {
@@ -1102,7 +1119,7 @@ function determineHand(hand){
     else if (isFlush(cardVals)){
         return hands._flush
     }
-    else if (is3ofaKind){
+    else if (is3ofaKind(cardVals)){
         return hands._3ofaKind
     }
     else if (is2Pair(cardVals)){
@@ -1240,17 +1257,14 @@ function is3ofaKind(cardVals){
 }
 
 function is2Pair(cardVals){
-    for(let i = 4; i < diceVals.length; i++){
+    for(let i = 4; i < cardVals.length; i++){
         if(cardVals[i] == 2)
         {
-            let cardval = cardVals[i]
-            cardVals[i] = 0
-            for(let j = 4; j < diceVals.length; j++){
-                if(diceVals[j] == 2){
+            for(let j = i+1; j < cardVals.length; j++){
+                if(cardVals[j] == 2){
                     console.log("2 Pair!")
                     return true
                 }
-            cardVals[i] = cardVal
             }
         }
     }
@@ -1957,7 +1971,9 @@ function evalBonus() {
         }
     }
 
-    if (_1 + _2 + _3 + _4 + _5 + _6 > 5) {
+    let bonusDiceVals = evalBonusDice()
+    
+    if(yisYahtzee(bonusDiceVals)) {
         alert("YAHTZEE BONUS")
         gotoYahtzeeBtn.style.display = null;
     }
@@ -1979,6 +1995,9 @@ returnBtn.addEventListener('click', function() {
     if(yahtzeeTopComplete && yahtzeeBottomComplete){
         resetYahtzee()
     }
+    
+    resetPoker()
+    
     prepSlots()
     returnBtn.style.display = "None";
 
@@ -1994,42 +2013,69 @@ gotoPokerBtn.addEventListener('click', function() {
     gotoPokerBtn.style.display = "None";
 })
 
+function checkBetAndBalance(){
+    let bet = Number(betValue.getAttribute("total"))
+    let bal = Number(balance.getAttribute("total"))
+    
+    if(bal < bet || bal == 0 || bet == 0){ rollBtn.disabled = true }
+    if(bal >= bet && bal > 0 && bet > 0){ rollBtn.disabled = false }
+    if(bal < 5){ betMax.disabled = true }
+    if(bal >= 5){ betMax.disabled = false }
+    if(bal < 1){ bet1.disabled = true }
+    if(bal >=1){ bet1.disabled = false }
+    if(bal < 0.8){ bet80.disabled = true }
+    if(bal >= 0.8){ bet80.disabled = false }
+    if(bal < 0.6){ bet60.disabled = true }
+    if(bal >= 0.6){ bet60.disabled = false }
+    if(bal < 0.4){ bet40.disabled = true }
+    if(bal >= 0.4){ bet40.disabled = false }
+    if(bal < 0.2){ bet20.disabled = true }
+    if(bal >= 0.2){ bet20.disabled = false }
+}
+
 depositBtn.addEventListener('click', function() {
     let deposit = Number(document.getElementById("deposit").value.replace("$","").replace(",",""))
     let bal = Number(balance.getAttribute("total"))
     bal += deposit
     balance.setAttribute("total", bal)
     balance.innerHTML = bal.toFixed(2)
+    checkBetAndBalance()
 })
 
 bet20.addEventListener('click', function() {
     betValue.setAttribute("total", 0.20)
     bet.innerHTML = "0.20"
+    checkBetAndBalance()
 })
 
 bet40.addEventListener('click', function() {
     betValue.setAttribute("total", 0.40)
     bet.innerHTML = "0.40"
+    checkBetAndBalance()
 })
 
 bet60.addEventListener('click', function() {
     betValue.setAttribute("total", 0.60)
     bet.innerHTML = "0.60"
+    checkBetAndBalance()
 })
 
 bet80.addEventListener('click', function() {
     betValue.setAttribute("total", 0.80)
     bet.innerHTML = "0.80"
+    checkBetAndBalance()
 })
 
 bet1.addEventListener('click', function() {
     betValue.setAttribute("total", 1.00)
     bet.innerHTML = "1.00"
+    checkBetAndBalance()
 })
 
 betMax.addEventListener('click', function() {
     betValue.setAttribute("total", 5.00)
     bet.innerHTML = "5.00"
+    checkBetAndBalance()
 })
 
 function updateCardDie(dice, card){
@@ -2131,6 +2177,7 @@ rollBtn.addEventListener('click', function() {
         updateDie(dice15, dice15val)
     }
 
+
     let bet = Number(betValue.getAttribute("total"));
     let board = evalBoard(bet);
 
@@ -2140,6 +2187,8 @@ rollBtn.addEventListener('click', function() {
     balance.setAttribute("total", bal)
     balance.innerHTML = bal.toFixed(2)
     log.innerHTML = board[1]
+    
+    checkBetAndBalance()
 
     //alert("Bet: "+ bet +"\nRoll: "+ roll);
 })
@@ -2457,6 +2506,42 @@ function evalTopScore() {
     return (
         Number(y1s.getAttribute("total")) + Number(y2s.getAttribute("total")) + Number(y3s.getAttribute("total")) + Number(y4s.getAttribute("total")) + Number(y5s.getAttribute("total")) + Number(y6s.getAttribute("total"))
     )
+}
+
+function evalBonusDice(){
+    let _1 = 0;
+    let _2 = 0;
+    let _3 = 0;
+    let _4 = 0;
+    let _5 = 0;
+    let _6 = 0;
+
+    for (let i = 0; i < bonusDice.length; i++) {
+        switch (Number(bonusDice[i].getAttribute("item"))) {
+            case yahtzeeDice._1:
+                _1++;
+                break;
+            case yahtzeeDice._2:
+                _2++;
+                break;
+            case yahtzeeDice._3:
+                _3++;
+                break;
+            case yahtzeeDice._4:
+                _4++;
+                break;
+            case yahtzeeDice._5:
+                _5++;
+                break;
+            case yahtzeeDice._6:
+                _6++;
+                break;
+            default:
+                break;
+        }
+    }
+
+    return [_1, _2, _3, _4, _5, _6]
 }
 
 function evalYahtzee() {
@@ -2785,6 +2870,18 @@ y6sBtn.addEventListener('click', function() {
 
 })
 
+function yis3oak(diceVals){
+    let has3oak = false;
+    for (let i = 0; i < diceVals.length; i++) {
+        if (diceVals[i] >= 3) {
+            has3oak = true;
+            break;
+        }
+    }
+    
+    return has3oak
+}
+
 _3oakBtn.addEventListener('click', function() {
     let diceVals = evalYahtzee();
     let yScore = (diceVals[yahtzeeDice._1] +
@@ -2796,7 +2893,7 @@ _3oakBtn.addEventListener('click', function() {
     let bal = Number(balance.getAttribute("total"))
     _3oakBtn.setAttribute("click", "true")
 
-    has3oak = false;
+    let has3oak = false;
     for (let i = 0; i < diceVals.length; i++) {
         if (diceVals[i] >= 3) {
             has3oak = true;
@@ -2842,6 +2939,18 @@ _3oakBtn.addEventListener('click', function() {
 
 })
 
+function yis4oak(diceVals){
+    let has4oak = false;
+    for (let i = 0; i < diceVals.length; i++) {
+        if (diceVals[i] >= 4) {
+            has4oak = true;
+            break;
+        }
+    }
+    
+    return has4oak
+}
+
 _4oakBtn.addEventListener('click', function() {
     let diceVals = evalYahtzee();
     let yScore = (diceVals[yahtzeeDice._1] +
@@ -2853,7 +2962,7 @@ _4oakBtn.addEventListener('click', function() {
     let bal = Number(balance.getAttribute("total"))
     _4oakBtn.setAttribute("click", "true")
 
-    has4oak = false;
+    let has4oak = false;
     for (let i = 0; i < diceVals.length; i++) {
         if (diceVals[i] >= 4) {
             has4oak = true;
@@ -2899,13 +3008,37 @@ _4oakBtn.addEventListener('click', function() {
 
 })
 
+function yisFullHouse(diceVals){
+    let hasfullhouse = false;
+    for (let i = 0; i < diceVals.length; i++) {
+        if (diceVals[i] == 5) {
+            hasfullhouse = true;
+            break;
+        }
+        if (diceVals[i] == 4) {
+            hasfullhouse = false
+            break;
+        }
+        if (diceVals[i] == 3) {
+            for (let j = 0; j < diceVals.length; j++) {
+                if (diceVals[j] == 2) {
+                    hasfullhouse = true
+                    break;
+                }
+            }
+        }
+    }
+    
+    return hasfullhouse
+}
+
 fullHouseBtn.addEventListener('click', function() {
     let diceVals = evalYahtzee();
     let yScore = 25
     let bal = Number(balance.getAttribute("total"))
     fullHouseBtn.setAttribute("click", "true")
 
-    hasfullhouse = false;
+    let hasfullhouse = false;
     for (let i = 0; i < diceVals.length; i++) {
         if (diceVals[i] == 5) {
             hasfullhouse = true;
@@ -2963,13 +3096,33 @@ fullHouseBtn.addEventListener('click', function() {
 
 })
 
+function yisSmStraight(diceVals){
+    let hasSmStraight = false;
+    if ((diceVals[yahtzeeDice._1] >= 1 &&
+            diceVals[yahtzeeDice._2] >= 1 &&
+            diceVals[yahtzeeDice._3] >= 1 &&
+            diceVals[yahtzeeDice._4] >= 1) ||
+        (diceVals[yahtzeeDice._2] >= 1 &&
+            diceVals[yahtzeeDice._3] >= 1 &&
+            diceVals[yahtzeeDice._4] >= 1 &&
+            diceVals[yahtzeeDice._5] >= 1) ||
+        (diceVals[yahtzeeDice._3] >= 1 &&
+            diceVals[yahtzeeDice._4] >= 1 &&
+            diceVals[yahtzeeDice._5] >= 1 &&
+            diceVals[yahtzeeDice._6] >= 1)) {
+        hasSmStraight = true
+    }
+    
+    return hasSmStraight
+}
+
 smStraightBtn.addEventListener('click', function() {
     let diceVals = evalYahtzee();
     let yScore = 30
     let bal = Number(balance.getAttribute("total"))
     smStraightBtn.setAttribute("click", "true")
 
-    hasSmStraight = false;
+    let hasSmStraight = false;
     if ((diceVals[yahtzeeDice._1] >= 1 &&
             diceVals[yahtzeeDice._2] >= 1 &&
             diceVals[yahtzeeDice._3] >= 1 &&
@@ -3023,13 +3176,31 @@ smStraightBtn.addEventListener('click', function() {
 
 })
 
+function yisLgStraight(diceVals){
+    let hasLgStraight = false;
+    if ((diceVals[yahtzeeDice._1] >= 1 &&
+            diceVals[yahtzeeDice._2] >= 1 &&
+            diceVals[yahtzeeDice._3] >= 1 &&
+            diceVals[yahtzeeDice._4] >= 1 &&
+            diceVals[yahtzeeDice._5] >= 1) ||
+        (diceVals[yahtzeeDice._2] >= 1 &&
+            diceVals[yahtzeeDice._3] >= 1 &&
+            diceVals[yahtzeeDice._4] >= 1 &&
+            diceVals[yahtzeeDice._5] >= 1 &&
+            diceVals[yahtzeeDice._6] >= 1)) {
+        hasLgStraight = true
+    }
+    
+    return hasLgStraight
+}
+
 lgStraightBtn.addEventListener('click', function() {
     let diceVals = evalYahtzee();
     let yScore = 40
     let bal = Number(balance.getAttribute("total"))
     lgStraightBtn.setAttribute("click", "true")
 
-    hasLgStraight = false;
+    let hasLgStraight = false;
     if ((diceVals[yahtzeeDice._1] >= 1 &&
             diceVals[yahtzeeDice._2] >= 1 &&
             diceVals[yahtzeeDice._3] >= 1 &&
@@ -3080,6 +3251,18 @@ lgStraightBtn.addEventListener('click', function() {
     hideYahtzeeBtns()
 
 })
+
+function yisYahtzee(diceVals){
+    hasYahtzee = false
+    for(let i = 0; i < diceVals.length; i++){
+        if(diceVals[i] == 5){
+            hasYahtzee = true
+            break
+        }
+    }
+    
+    return hasYahtzee
+}
 
 yahtzeeBtn.addEventListener('click', function() {
     let diceVals = evalYahtzee();
@@ -3163,3 +3346,113 @@ chanceBtn.addEventListener('click', function() {
 
 })
 
+/////POKER/////
+dice16.addEventListener('click', function() {
+    if (dice16.getAttribute("click") != "true") {
+        dice16.setAttribute("click", true)
+        dice16.style.borderColor = "yellow"
+        dice16.style.borderWidth = "8px"
+    }
+    else {
+        dice16.setAttribute("click", false)
+        dice16.style.borderColor = "transparent"
+    }
+})
+
+dice17.addEventListener('click', function() {
+    if (dice17.getAttribute("click") != "true") {
+        dice17.setAttribute("click", true)
+        dice17.style.borderColor = "yellow"
+        dice17.style.borderWidth = "8px"
+    }
+    else {
+        dice17.setAttribute("click", false)
+        dice17.style.borderColor = "transparent"
+    }
+})
+
+dice18.addEventListener('click', function() {
+    if (dice18.getAttribute("click") != "true") {
+        dice18.setAttribute("click", true)
+        dice18.style.borderColor = "yellow"
+        dice18.style.borderWidth = "8px"
+    }
+    else {
+        dice18.setAttribute("click", false)
+        dice18.style.borderColor = "transparent"
+    }
+})
+
+dice19.addEventListener('click', function() {
+    if (dice19.getAttribute("click") != "true") {
+        dice19.setAttribute("click", true)
+        dice19.style.borderColor = "yellow"
+        dice19.style.borderWidth = "8px"
+    }
+    else {
+        dice19.setAttribute("click", false)
+        dice19.style.borderColor = "transparent"
+    }
+})
+
+dice20.addEventListener('click', function() {
+    if (dice20.getAttribute("click") != "true") {
+        dice20.setAttribute("click", true)
+        dice20.style.borderColor = "yellow"
+        dice20.style.borderWidth = "8px"
+    }
+    else {
+        dice20.setAttribute("click", false)
+        dice20.style.borderColor = "transparent"
+    }
+})
+
+
+dealBtn.addEventListener('click', function(){
+    
+    if(dealBtn.getAttribute("click") != "true"){
+        newDeck()
+    }
+    
+    let bet = Number(betValue.getAttribute("total"))
+    let bal = Number(balance.getAttribute("total"))
+    let pokerScore = 0
+    let card1val = deal()
+    let card2val = deal()
+    let card3val = deal()
+    let card4val = deal()
+    let card5val = deal()
+    
+    if (dice16.getAttribute("click") != "true") {
+        updateCardDie(dice16, card1val)
+    }
+    if (dice17.getAttribute("click") != "true") {
+        updateCardDie(dice17, card2val)
+    }
+    if (dice18.getAttribute("click") != "true") {
+        updateCardDie(dice18, card3val)
+    }
+    if (dice19.getAttribute("click") != "true") {
+        updateCardDie(dice19, card4val)
+    }
+    if (dice20.getAttribute("click") != "true") {
+        updateCardDie(dice20, card5val)
+    }
+    
+    if(dealBtn.getAttribute("click") != "true"){
+        dealBtn.setAttribute("click", "true")
+    }
+    else
+    {
+        dealBtn.style.display = "None"
+        pokerScore = evalHand(pokerLine, bet)
+        score.setAttribute("total", pokerScore)
+        score.innerHTML = pokerScore.toFixed(2)
+        bal += pokerScore
+        
+        balance.setAttribute("total", bal)
+        balance.innerHTML = bal.toFixed(2)
+        
+        returnBtn.style.display = null
+    }
+})
